@@ -1,0 +1,57 @@
+{
+"com.badlogic.gdx.graphics.g2d.BitmapFont": {
+	"roboto-12-regular": {
+		"file": "roboto-12-regular.fnt"
+	},
+	"roboto-16-regular": {
+		"file": "roboto-16-regular.fnt"
+	},
+	"roboto-32-regular": {
+		"file": "roboto-32-regular.fnt"
+	}
+},
+"com.badlogic.gdx.graphics.Color": {
+	"Active-Button-Text-Color": {
+		"r": 1,
+		"g": 0.6666667,
+		"b": 0,
+		"a": 1
+	},
+	"Default-Button-Text-Color": {
+		"r": 1,
+		"g": 1,
+		"b": 1,
+		"a": 1
+	},
+	"Default-Text-Color": {
+		"r": 0,
+		"g": 0,
+		"b": 1,
+		"a": 1
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle": {
+	"default": {
+		"font": "roboto-16-regular",
+		"fontColor": "Default-Button-Text-Color"
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
+	"default": {
+		"font": "roboto-16-regular",
+		"fontColor": "Default-Text-Color"
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
+	"default": {
+		"font": "roboto-16-regular",
+		"fontColor": "Default-Button-Text-Color",
+		"downFontColor": "Active-Button-Text-Color"
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle": {
+	"default": {
+		"label": "default"
+	}
+}
+}

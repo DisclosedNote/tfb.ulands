@@ -1,0 +1,27 @@
+
+skin.png
+size: 2048, 2048
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+roboto-12-regular
+  rotate: false
+  xy: 1027, 769
+  size: 256, 512
+  orig: 256, 512
+  offset: 0, 0
+  index: -1
+roboto-16-regular
+  rotate: false
+  xy: 1, 255
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+roboto-32-regular
+  rotate: false
+  xy: 1, 769
+  size: 1024, 512
+  orig: 1024, 512
+  offset: 0, 0
+  index: -1
