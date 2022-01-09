@@ -1,0 +1,71 @@
+<svg width="790" height="1020" version="1.1" viewBox="0 0 209.02 269.88" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient id="linearGradient7245" x1="136.08" x2="136.08" y1="-762.68" y2="-719.76" gradientTransform="matrix(1.7234 0 0 1 -98.308 0)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#f60" stop-opacity=".55272" offset="0"/>
+   <stop stop-color="#fbff00" stop-opacity=".74441" offset="1"/>
+  </linearGradient>
+  <filter id="filter7683-2" x="-.22626" y="-.50557" width="1.4525" height="2.0111" color-interpolation-filters="sRGB">
+   <feGaussianBlur result="fbSourceGraphic" stdDeviation="11.42914"/>
+   <feColorMatrix in="fbSourceGraphic" result="fbSourceGraphicAlpha" values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"/>
+   <feMorphology in="fbSourceGraphic" operator="dilate" radius="2.4" result="result1"/>
+   <feTurbulence baseFrequency="0.09 0.028"/>
+   <feColorMatrix result="result2" values="2 0 0 0 0 0 2 0 0 0 0 0 0 0 0 0 0 0 1 0"/>
+   <feDisplacementMap in="result1" in2="result2" result="result4" scale="10.31941" xChannelSelector="R" yChannelSelector="G"/>
+   <feFlood flood-color="rgb(255,159,54)" result="result3"/>
+   <feMorphology in="result4" radius="3.8" result="result7"/>
+   <feGaussianBlur in="result7" result="result7" stdDeviation="2.4"/>
+   <feComposite in="result3" in2="result4" operator="in" result="result5"/>
+   <feComposite in2="result7" operator="out"/>
+   <feOffset dx="-4.5" dy="-7" result="result6"/>
+   <feGaussianBlur result="result7" stdDeviation="4.8"/>
+   <feComposite in="fbSourceGraphic" in2="result6" result="result8"/>
+   <feComposite in2="result7"/>
+  </filter>
+  <linearGradient id="linearGradient7729" x1="3776.5" x2="3776.5" y1="897.01" y2="911.55" gradientUnits="userSpaceOnUse">
+   <stop offset="0"/>
+   <stop stop-color="#8b8b8b" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g transform="matrix(.99635 0 0 1.0001 -30.89 972.88)">
+  <ellipse transform="matrix(.79498 0 0 .68308 28.048 -233.88)" cx="135.9" cy="-741.22" rx="60.617" ry="27.128" fill="url(#linearGradient7245)" filter="url(#filter7683-2)" style="mix-blend-mode:normal;paint-order:normal"/>
+  <path transform="matrix(.26458 0 0 .26458 -863.16 -988.74)" d="m3776 203.35a380.7 380.7 0 0 0-380.7 380.7 380.7 380.7 0 0 0 163.91 312.95h433.57a380.7 380.7 0 0 0 163.91-312.95 380.7 380.7 0 0 0-380.7-380.7z" fill="#7599bd" fill-rule="evenodd" stroke="url(#linearGradient7729)" stroke-linejoin="round" stroke-width="31.495" style="paint-order:normal"/>
+  <g stroke="#000">
+   <g transform="translate(28.597 -1026.3)" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.21">
+    <path d="m145.36 126.84 11.399-42.542c-14.373-4.7543-18.478-14.31-7.8094-29.145l7.8094 29.145 21.152-5.6678-3.236-12.077-8.386 2.247 1.02 3.8069 8.1125-2.0865 2.471 8.3239-21.133 5.4535" fill="#b3b3b3"/>
+    <path d="m39.852 80.163 28.399-9.2273m-31.327-2.0387 28.399-9.2273m2.2426 67.169-16.24-60.608" fill="none"/>
+   </g>
+   <g transform="translate(32.531 -1026.3)" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.21">
+    <circle cx="90.147" cy="149.4" r="2.0789" style="paint-order:normal"/>
+    <circle cx="116.8" cy="149.4" r="2.0789" style="paint-order:normal"/>
+   </g>
+   <g fill="none">
+    <path d="m100.1-826.08h71.815" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.21"/>
+    <g stroke-width="1.81">
+     <path d="m46.878-789.41 16.631-12.095 24.946 26.836-16.631 19.277"/>
+     <path d="m88.456-774.67 33.888 13.036-1.393 7.7937"/>
+     <path d="m122.34-761.64 35.866-5.6551 5.6573 14.491"/>
+    </g>
+   </g>
+  </g>
+  <g fill-rule="evenodd" stroke="#140c00" stroke-linecap="round" stroke-linejoin="round" stroke-width=".84422">
+   <circle cx="84.978" cy="-774.84" r=".22037" style="paint-order:normal"/>
+   <circle cx="83.388" cy="-776.35" r=".22037" style="paint-order:normal"/>
+   <circle cx="118.88" cy="-759.93" r=".22037" style="paint-order:normal"/>
+   <circle cx="156.68" cy="-764.28" r=".22037" style="paint-order:normal"/>
+   <circle cx="51.414" cy="-789.79" r=".22037" style="paint-order:normal"/>
+  </g>
+  <path d="m193.41-887.04 13.036 33.888 27.712-4.9305" fill="none" stroke="#000" stroke-width="1.81"/>
+  <path d="m204.9-904.09-11.491 17.054-32.621-16.686 9.0349-23.802" fill="none" stroke="#000" stroke-width="1.81"/>
+  <g stroke-linecap="round" stroke-linejoin="round">
+   <g fill-rule="evenodd" stroke="#140c00" stroke-width=".84422">
+    <circle cx="164.37" cy="-905.45" r=".22037" style="paint-order:normal"/>
+    <circle cx="196.18" cy="-887.12" r=".22037" style="paint-order:normal"/>
+    <circle cx="197.41" cy="-884.77" r=".22037" style="paint-order:normal"/>
+    <circle cx="227.45" cy="-859.74" r=".22037" style="paint-order:normal"/>
+    <circle cx="200.72" cy="-903.57" r=".22037" style="paint-order:normal"/>
+   </g>
+   <path d="m97.019-829.94c5.3617 2.6127 2.724 5.9018-0.26727 9.2208" fill="none" stroke="#000" stroke-width="3.21"/>
+   <path d="m176.21-829.45c-5.3617 2.6127-2.724 5.9018 0.26727 9.2208" fill="none" stroke="#000" stroke-width="3.21"/>
+  </g>
+ </g>
+</svg>
