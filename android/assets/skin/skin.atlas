@@ -4,24 +4,183 @@ size: 2048, 2048
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
-roboto-12-regular
+roboto-28-regular
   rotate: false
-  xy: 1027, 769
-  size: 256, 512
-  orig: 256, 512
-  offset: 0, 0
-  index: -1
-roboto-16-regular
-  rotate: false
-  xy: 1, 255
-  size: 512, 512
-  orig: 512, 512
+  xy: 1, 1029
+  size: 1024, 512
+  orig: 1024, 512
   offset: 0, 0
   index: -1
 roboto-32-regular
   rotate: false
-  xy: 1, 769
+  xy: 1, 515
   size: 1024, 512
   orig: 1024, 512
+  offset: 0, 0
+  index: -1
+roboto-36-regular
+  rotate: false
+  xy: 1, 1
+  size: 1024, 512
+  orig: 1024, 512
+  offset: 0, 0
+  index: -1
+
+skin2.png
+size: 2048, 2048
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+roboto-48-regular
+  rotate: false
+  xy: 1, 1
+  size: 1024, 1024
+  orig: 1024, 1024
+  offset: 0, 0
+  index: -1
+
+skin3.png
+size: 2048, 2048
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+roboto-64-regular1
+  rotate: false
+  xy: 1, 1
+  size: 1024, 1024
+  orig: 1024, 1024
+  offset: 0, 0
+  index: -1
+
+skin4.png
+size: 2048, 2048
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+roboto-64-regular2
+  rotate: false
+  xy: 1, 1
+  size: 1024, 1024
+  orig: 1024, 1024
+  offset: 0, 0
+  index: -1
+
+skin5.png
+size: 2048, 2048
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+roboto-72-regular1
+  rotate: false
+  xy: 1, 1
+  size: 1024, 1024
+  orig: 1024, 1024
+  offset: 0, 0
+  index: -1
+
+skin6.png
+size: 2048, 2048
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+roboto-14-regular
+  rotate: false
+  xy: 1, 515
+  size: 512, 256
+  orig: 512, 256
+  offset: 0, 0
+  index: -1
+roboto-16-regular
+  rotate: false
+  xy: 1027, 1285
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+roboto-18-regular
+  rotate: false
+  xy: 1, 1
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+roboto-20-regular
+  rotate: false
+  xy: 515, 259
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+roboto-22-regular
+  rotate: false
+  xy: 1029, 771
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+roboto-24-regular
+  rotate: false
+  xy: 1029, 257
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+roboto-72-regular2
+  rotate: false
+  xy: 1, 773
+  size: 1024, 1024
+  orig: 1024, 1024
+  offset: 0, 0
+  index: -1
+
+skin7.png
+size: 2048, 2048
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+roboto-11-regular
+  rotate: false
+  xy: 1, 515
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+roboto-12-bold
+  rotate: false
+  xy: 515, 1189
+  size: 256, 512
+  orig: 256, 512
+  offset: 0, 0
+  index: -1
+roboto-12-regular
+  rotate: false
+  xy: 1, 1
+  size: 256, 512
+  orig: 256, 512
+  offset: 0, 0
+  index: -1
+roboto-26-regular
+  rotate: false
+  xy: 1, 1287
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+button-up
+  rotate: false
+  xy: 515, 1703
+  size: 267, 96
+  split: 13, 13, 14, 14
+  pad: 0, 0, 0, 0
+  orig: 267, 96
+  offset: 0, 0
+  index: -1
+window
+  rotate: false
+  xy: 1, 773
+  size: 512, 512
+  split: 27, 27, 54, 27
+  pad: 0, 0, 0, 0
+  orig: 512, 512
   offset: 0, 0
   index: -1

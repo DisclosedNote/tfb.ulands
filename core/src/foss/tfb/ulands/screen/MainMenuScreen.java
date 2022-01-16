@@ -1,52 +1,65 @@
 package foss.tfb.ulands.screen;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import foss.tfb.ulands.UlandsTFBGame;
+import foss.tfb.ulands.ui.Window;
 
 
-public class MainMenuScreen extends DefaultScreen {
+public class MainMenuScreen extends MenuScreen {
 
-    public MainMenuScreen(Game aGame) {
+    public MainMenuScreen(UlandsTFBGame game) {
+        super(game);
         this.init();
     }
 
+    Window window;
+
     public void init()
     {
-        Label title = new Label("Title Screen", UlandsTFBGame.skin, UlandsTFBGame.DEFAULT_FONT);
+        Skin skin = UlandsTFBGame.getSkin();
+        window = new Window("YO!", skin);
+
+        window.setWidth((float) (Gdx.graphics.getWidth() / 1.5));
+        window.setHeight((float) (Gdx.graphics.getHeight() / 1.5));
+
+        Table table = new Table(skin);
+
+        Label title = new Label("Title Screen", skin, UlandsTFBGame.DEFAULT_FONT);
         title.setAlignment(Align.center);
-        title.setY(Gdx.graphics.getHeight() * 2 / 3);
         title.setWidth(Gdx.graphics.getWidth());
-        stage.addActor(title);
 
-
-
-        TextButton playButton = new TextButton("Play!", UlandsTFBGame.skin);
-        playButton.setWidth(Gdx.graphics.getWidth() / 2);
-        playButton.setPosition(Gdx.graphics.getWidth()/2-playButton.getWidth()/2,Gdx.graphics.getHeight()/2-playButton.getHeight()/2);
+        ImageTextButton playButton = new ImageTextButton("Play!", skin);
+        playButton.setWidth(100);
+        playButton.setHeight(100);
         playButton.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 //                game.setScreen(new GameScreen(game));
+//                System.out.println("yes!");
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 return true;
             }
         });
-        stage.addActor(playButton);
+
+        table.row().colspan(3).expandX().fillX();
+        table.add(title).fillX();
+        table.row().colspan(3).expandX().fillX();
+        table.add(playButton).height(playButton.getHeight()).width(playButton.getWidth()).fillX();
+
+        window.add(table);
+        stage.addActor(window);
     }
 
-    @Override
-    public void show() {
-        Gdx.input.setInputProcessor(stage);
-    }
 
     @Override
     public void render(float delta) {
@@ -57,27 +70,8 @@ public class MainMenuScreen extends DefaultScreen {
     }
 
     @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
     public void dispose() {
+        super.dispose();
         stage.dispose();
     }
 }

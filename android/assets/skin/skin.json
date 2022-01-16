@@ -1,20 +1,59 @@
 {
 "com.badlogic.gdx.graphics.g2d.BitmapFont": {
+	"roboto-11-regular": {
+		"file": "roboto-11-regular.fnt"
+	},
+	"roboto-12-bold": {
+		"file": "roboto-12-bold.fnt"
+	},
 	"roboto-12-regular": {
 		"file": "roboto-12-regular.fnt"
+	},
+	"roboto-14-regular": {
+		"file": "roboto-14-regular.fnt"
 	},
 	"roboto-16-regular": {
 		"file": "roboto-16-regular.fnt"
 	},
+	"roboto-18-regular": {
+		"file": "roboto-18-regular.fnt"
+	},
+	"roboto-20-regular": {
+		"file": "roboto-20-regular.fnt"
+	},
+	"roboto-22-regular": {
+		"file": "roboto-22-regular.fnt"
+	},
+	"roboto-24-regular": {
+		"file": "roboto-24-regular.fnt"
+	},
+	"roboto-26-regular": {
+		"file": "roboto-26-regular.fnt"
+	},
+	"roboto-28-regular": {
+		"file": "roboto-28-regular.fnt"
+	},
 	"roboto-32-regular": {
 		"file": "roboto-32-regular.fnt"
+	},
+	"roboto-36-regular": {
+		"file": "roboto-36-regular.fnt"
+	},
+	"roboto-48-regular": {
+		"file": "roboto-48-regular.fnt"
+	},
+	"roboto-64-regular": {
+		"file": "roboto-64-regular.fnt"
+	},
+	"roboto-72-regular": {
+		"file": "roboto-72-regular.fnt"
 	}
 },
 "com.badlogic.gdx.graphics.Color": {
-	"Active-Button-Text-Color": {
-		"r": 1,
-		"g": 0.6666667,
-		"b": 0,
+	"Background-Window-Color": {
+		"r": 0.34117648,
+		"g": 0,
+		"b": 0.6784314,
 		"a": 1
 	},
 	"Default-Button-Text-Color": {
@@ -24,21 +63,74 @@
 		"a": 1
 	},
 	"Default-Text-Color": {
-		"r": 0,
+		"r": 0.5019608,
 		"g": 0,
 		"b": 1,
 		"a": 1
+	},
+	"Down-Button-Text-Color": {
+		"r": 0.36078432,
+		"g": 1,
+		"b": 0.09803922,
+		"a": 1
+	},
+	"Over-Button-Text-Color": {
+		"r": 1,
+		"g": 0.8235294,
+		"b": 0.09803922,
+		"a": 1
+	},
+	"Selected-Item-Select-Color": {
+		"r": 1,
+		"g": 0.050980393,
+		"b": 0.92156863,
+		"a": 1
+	},
+	"Title-Text-Window-Color": {
+		"r": 1,
+		"g": 0.8235294,
+		"b": 0.09803922,
+		"a": 1
+	},
+	"Unselected-Item-Select-Color": {
+		"r": 0.36078432,
+		"g": 1,
+		"b": 0.09803922,
+		"a": 1
+	},
+	"Up-Background-Image-Text-Button-Color": {
+		"r": 0.5019608,
+		"g": 0,
+		"b": 1,
+		"a": 0.49803922
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle": {
+	"default": {
+		"up": "button-up"
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle": {
+	"default": {
+		"up": "button-up"
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle": {
 	"default": {
 		"font": "roboto-16-regular",
-		"fontColor": "Default-Button-Text-Color"
+		"fontColor": "Default-Button-Text-Color",
+		"downFontColor": "Down-Button-Text-Color",
+		"overFontColor": "Over-Button-Text-Color",
+		"up": "button-up"
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
 	"default": {
 		"font": "roboto-16-regular",
+		"fontColor": "Default-Text-Color"
+	},
+	"h1": {
+		"font": "roboto-32-regular",
 		"fontColor": "Default-Text-Color"
 	}
 },
@@ -46,12 +138,19 @@
 	"default": {
 		"font": "roboto-16-regular",
 		"fontColor": "Default-Button-Text-Color",
-		"downFontColor": "Active-Button-Text-Color"
+		"downFontColor": "Over-Button-Text-Color"
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle": {
 	"default": {
 		"label": "default"
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle": {
+	"default": {
+		"background": "window",
+		"titleFont": "roboto-22-regular",
+		"titleFontColor": "Title-Text-Window-Color"
 	}
 }
 }
