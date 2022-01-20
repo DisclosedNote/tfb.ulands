@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import foss.tfb.ulands.screen.DefaultScreen;
 import foss.tfb.ulands.screen.MainMenuScreen;
+import foss.tfb.ulands.screen.SettingsScreen;
 
 public class UlandsTFBGame extends Game {
 
@@ -19,7 +20,7 @@ public class UlandsTFBGame extends Game {
 		Gdx.input.setInputProcessor(multiplexer);
 
 		skin = new Skin(Gdx.files.internal("skin/skin.json"));
-		this.setScreen(new MainMenuScreen(this));
+		this.setScreen(new SettingsScreen(this));
 	}
 
 	public InputMultiplexer getInputMultiplexer() {
