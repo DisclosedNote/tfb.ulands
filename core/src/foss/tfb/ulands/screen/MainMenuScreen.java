@@ -12,10 +12,10 @@ import com.badlogic.gdx.utils.Align;
 import foss.tfb.ulands.UlandsTFBGame;
 import foss.tfb.ulands.ui.Window;
 
-
-public class MainMenuScreen extends MenuScreen {
-
-    public MainMenuScreen(UlandsTFBGame game) {
+public class MainMenuScreen extends MenuScreen
+{
+    public MainMenuScreen(UlandsTFBGame game)
+    {
         super(game);
         this.init();
     }
@@ -60,9 +60,9 @@ public class MainMenuScreen extends MenuScreen {
         stage.addActor(window);
     }
 
-
     @Override
-    public void render(float delta) {
+    public void render(float delta)
+    {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act();
@@ -70,7 +70,8 @@ public class MainMenuScreen extends MenuScreen {
     }
 
     @Override
-    public void dispose() {
+    public void dispose()
+    {
         super.dispose();
         stage.dispose();
     }
