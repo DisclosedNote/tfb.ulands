@@ -25,7 +25,7 @@ public class MainMenuScreen extends MenuScreen {
     public void init()
     {
         Skin skin = UlandsTFBGame.getSkin();
-        window = new Window("YO!", skin);
+        window = new Window("Title Screen", skin);
 
         window.setWidth((float) (Gdx.graphics.getWidth() / 1.5));
         window.setHeight((float) (Gdx.graphics.getHeight() / 1.5));
@@ -43,7 +43,6 @@ public class MainMenuScreen extends MenuScreen {
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 //                game.setScreen(new GameScreen(game));
-//                System.out.println("yes!");
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {

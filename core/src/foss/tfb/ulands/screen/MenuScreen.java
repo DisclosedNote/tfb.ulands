@@ -17,7 +17,6 @@ abstract public class MenuScreen extends DefaultScreen {
     @Override
     public void show() {
         this.game.getInputMultiplexer().addProcessor(this.stage);
-        System.out.println("yo!!!");
     }
 
     @Override
