@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import foss.tfb.ulands.UlandsTFBGame;
-import foss.tfb.ulands.ui.Window;
+import foss.tfb.ulands.ui.DefaultWindow;
 
 public class MainMenuScreen extends MenuScreen
 {
@@ -20,12 +20,12 @@ public class MainMenuScreen extends MenuScreen
         this.init();
     }
 
-    Window window;
+    DefaultWindow window;
 
     public void init()
     {
         Skin skin = UlandsTFBGame.getSkin();
-        window = new Window("Title Screen", skin);
+        window = new DefaultWindow("Title Screen", skin);
 
         window.setWidth((float) (Gdx.graphics.getWidth() / 1.5));
         window.setHeight((float) (Gdx.graphics.getHeight() / 1.5));

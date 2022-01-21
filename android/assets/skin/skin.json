@@ -108,6 +108,12 @@
 "com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle": {
 	"default": {
 		"up": "button-up"
+	},
+	"close-button": {
+		"up": "close-button"
+	},
+	"enlarge-button": {
+		"up": "enlarge-button"
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle": {

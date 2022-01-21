@@ -175,6 +175,20 @@ button-up
   orig: 267, 96
   offset: 0, 0
   index: -1
+close-button
+  rotate: false
+  xy: 784, 1735
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+enlarge-button
+  rotate: false
+  xy: 259, 707
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 window
   rotate: false
   xy: 1, 773
