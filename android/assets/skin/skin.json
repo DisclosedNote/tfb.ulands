@@ -82,8 +82,8 @@
 	},
 	"Selected-Item-Select-Color": {
 		"r": 1,
-		"g": 0.050980393,
-		"b": 0.92156863,
+		"g": 1,
+		"b": 1,
 		"a": 1
 	},
 	"Title-Text-Window-Color": {
@@ -93,8 +93,8 @@
 		"a": 1
 	},
 	"Unselected-Item-Select-Color": {
-		"r": 0.36078432,
-		"g": 1,
+		"r": 1,
+		"g": 0.8235294,
 		"b": 0.09803922,
 		"a": 1
 	},
@@ -114,6 +114,9 @@
 	},
 	"enlarge-button": {
 		"up": "enlarge-button"
+	},
+	"sub-menu-button": {
+		"up": "sub-menu-button"
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle": {
@@ -138,6 +141,36 @@
 	"h1": {
 		"font": "roboto-32-regular",
 		"fontColor": "Default-Text-Color"
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle": {
+	"default": {
+		"font": "roboto-14-regular",
+		"fontColorSelected": "Selected-Item-Select-Color",
+		"fontColorUnselected": "Unselected-Item-Select-Color",
+		"selection": "list-selection"
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle": {
+	"default": {
+		"hScroll": "scroll",
+		"hScrollKnob": "scroll-knob",
+		"vScroll": "scroll",
+		"vScrollKnob": "scroll-knob"
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle": {
+	"default": {
+		"font": "roboto-18-regular",
+		"fontColor": "Default-Button-Text-Color",
+		"scrollStyle": "default",
+		"listStyle": "default"
+	},
+	"actions-list-style": {
+		"parent": "default",
+		"background": "sub-menu-button",
+		"scrollStyle": "default",
+		"listStyle": "default"
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {

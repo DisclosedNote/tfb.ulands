@@ -140,35 +140,35 @@ filter: Linear, Linear
 repeat: none
 roboto-11-regular
   rotate: false
-  xy: 1, 515
+  xy: 1, 533
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 roboto-12-bold
   rotate: false
-  xy: 515, 1189
+  xy: 515, 1207
   size: 256, 512
   orig: 256, 512
   offset: 0, 0
   index: -1
 roboto-12-regular
   rotate: false
-  xy: 1, 1
+  xy: 1, 19
   size: 256, 512
   orig: 256, 512
   offset: 0, 0
   index: -1
 roboto-26-regular
   rotate: false
-  xy: 1, 1287
+  xy: 1, 1305
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 button-up
   rotate: false
-  xy: 515, 1703
+  xy: 515, 1721
   size: 267, 96
   split: 13, 13, 14, 14
   pad: 0, 0, 0, 0
@@ -177,21 +177,55 @@ button-up
   index: -1
 close-button
   rotate: false
-  xy: 784, 1735
+  xy: 784, 1753
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 enlarge-button
   rotate: false
-  xy: 259, 707
+  xy: 259, 725
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+list-selection
+  rotate: false
+  xy: 850, 1801
+  size: 16, 16
+  split: 2, 2, 2, 2
+  pad: 0, 0, 0, 0
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+scroll
+  rotate: false
+  xy: 784, 1735
+  size: 16, 16
+  split: 2, 2, 2, 2
+  pad: 0, 0, 0, 0
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+scroll-knob
+  rotate: false
+  xy: 1, 1
+  size: 16, 16
+  split: 2, 2, 2, 2
+  pad: 0, 0, 0, 0
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+sub-menu-button
+  rotate: false
+  xy: 515, 1141
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 window
   rotate: false
-  xy: 1, 773
+  xy: 1, 791
   size: 512, 512
   split: 27, 27, 54, 27
   pad: 0, 0, 0, 0
