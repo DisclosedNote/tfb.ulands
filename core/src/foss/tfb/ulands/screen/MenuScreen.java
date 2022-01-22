@@ -16,24 +16,6 @@ abstract public class MenuScreen extends DefaultScreen
     }
 
     @Override
-    public void show()
-    {
-        this.game.getInputMultiplexer().addProcessor(this.stage);
-    }
-
-    @Override
-    public void hide()
-    {
-        this.game.getInputMultiplexer().removeProcessor(this.stage);
-    }
-
-    @Override
-    public void dispose()
-    {
-        this.game.getInputMultiplexer().removeProcessor(this.stage);
-    }
-
-    @Override
     public void render(float delta)
     {
 

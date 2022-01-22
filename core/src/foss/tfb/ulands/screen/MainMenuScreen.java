@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import foss.tfb.ulands.UlandsTFBGame;
-import foss.tfb.ulands.ui.DefaultWindow;
+import foss.tfb.ulands.ui.window.DefaultWindow;
 
 public class MainMenuScreen extends MenuScreen
 {

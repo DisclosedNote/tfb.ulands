@@ -1,4 +1,4 @@
-package foss.tfb.ulands.ui;
+package foss.tfb.ulands.ui.window;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -11,6 +11,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
+
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class DefaultWindow extends Window {
 
@@ -40,8 +45,8 @@ public class DefaultWindow extends Window {
         init();
     }
 
-    ShapeRenderer shapeRenderer;
-    private void init(){
+    protected ShapeRenderer shapeRenderer;
+    protected void init(){
         this.setResizeBorder(30);
 
         this.setMovable(true);
@@ -58,7 +63,7 @@ public class DefaultWindow extends Window {
         shapeRenderer.setAutoShapeType(true);
     }
 
-    public void closeButton()
+    protected void closeButton()
     {
         if(!closeButtonEnabled) return;
 
@@ -79,7 +84,7 @@ public class DefaultWindow extends Window {
 
 
 
-    public void enlargeButton()
+    protected void enlargeButton()
     {
         if(!enlargeButtonEnabled) return;
 
@@ -113,7 +118,7 @@ public class DefaultWindow extends Window {
                 .padTop(5);
     }
 
-    public void subMenuButton()
+    protected void subMenuButton()
     {
         if(!enlargeButtonEnabled) return;
 
@@ -136,14 +141,25 @@ public class DefaultWindow extends Window {
             }
         };
 
+        final ArrayList<WindowAction> subMenuActions = subMenuActions();
+
         subMenuButton.getList().addListener(new ClickListener() {
             public void clicked (InputEvent event, float x, float y) {
                 // TODO: fix input lag
-                System.out.println(subMenuButton.getSelected());
+                int index = subMenuButton.getSelectedIndex();
+                if(index < 0) return;
+                subMenuActions.get(index).doAction();
             }
         });
 
-        subMenuButton.setItems("item0", "item1", "item2");
+        // TODO: optimization?
+        Array<String> items = new Array<>();
+
+        for(String title : subMenuActions.stream().map(item -> item.title).collect(Collectors.toList()))
+            items.add(title);
+
+        subMenuButton.setItems(items);
+
 
         getTitleTable()
                 .add(subMenuButton)
@@ -152,18 +168,34 @@ public class DefaultWindow extends Window {
                 .padTop(5);
     }
 
+    protected ArrayList<WindowAction> subMenuActions()
+    {
+        ArrayList<WindowAction> actions = new ArrayList<>();
+        final DefaultWindow w = DefaultWindow.this;
 
-    int test = 0;
+        actions.add(new WindowAction("Rotate r90d")
+        {
+            @Override
+            public void doAction()
+            {
+                float r = w.getRotation();
+                w.setOrigin(Align.center);
+                w.setRotation(r - 90);
+            }
+        });
 
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
+        actions.add(new WindowAction("Rotate l90d")
+        {
+            @Override
+            public void doAction()
+            {
+                float r = w.getRotation();
+                w.setOrigin(Align.center);
+                w.setRotation(r + 90);
+            }
+        });
 
-//        shapeRenderer.begin();
-//        shapeRenderer.rect(this.getX() + padLeft, this.getY() + padRight, width - padLeft - padRight, height - padTop - padBottom);
-//        shapeRenderer.rect(this.getX(), this.getY(), width, height);
-//        shapeRenderer.
-//        shapeRenderer.end();
+        return actions;
     }
 
     @Override

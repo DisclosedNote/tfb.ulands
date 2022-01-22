@@ -15,6 +15,24 @@ abstract public class DefaultScreen implements Screen
         this.game = game;
     }
 
+    @Override
+    public void show()
+    {
+        this.game.getInputMultiplexer().addProcessor(this.stage);
+    }
+
+    @Override
+    public void hide()
+    {
+        this.game.getInputMultiplexer().removeProcessor(this.stage);
+    }
+
+    @Override
+    public void dispose()
+    {
+        this.game.getInputMultiplexer().removeProcessor(this.stage);
+    }
+
     public Stage getStage() {
         return stage;
     }
