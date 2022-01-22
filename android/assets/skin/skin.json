@@ -63,8 +63,8 @@
 		"a": 1
 	},
 	"Default-Text-Color": {
-		"r": 0.5019608,
-		"g": 0,
+		"r": 0.9019608,
+		"g": 0.8566667,
 		"b": 1,
 		"a": 1
 	},
@@ -126,7 +126,7 @@
 },
 "com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle": {
 	"default": {
-		"font": "roboto-16-regular",
+		"font": "roboto-20-regular",
 		"fontColor": "Default-Button-Text-Color",
 		"downFontColor": "Down-Button-Text-Color",
 		"overFontColor": "Over-Button-Text-Color",
