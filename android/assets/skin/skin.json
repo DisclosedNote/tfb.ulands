@@ -68,6 +68,12 @@
 		"b": 1,
 		"a": 1
 	},
+	"Default-Text-Field-Color": {
+		"r": 1,
+		"g": 1,
+		"b": 1,
+		"a": 1
+	},
 	"Down-Button-Text-Color": {
 		"r": 0.36078432,
 		"g": 1,
@@ -178,6 +184,15 @@
 		"font": "roboto-16-regular",
 		"fontColor": "Default-Button-Text-Color",
 		"downFontColor": "Over-Button-Text-Color"
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle": {
+	"default": {
+		"font": "roboto-20-regular",
+		"fontColor": "Default-Text-Field-Color",
+		"background": "text-field-background",
+		"cursor": "cursor",
+		"selection": "text-field-selection"
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle": {

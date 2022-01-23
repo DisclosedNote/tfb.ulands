@@ -182,6 +182,13 @@ close-button
   orig: 64, 64
   offset: 0, 0
   index: -1
+cursor
+  rotate: false
+  xy: 773, 1703
+  size: 2, 16
+  orig: 2, 16
+  offset: 0, 0
+  index: -1
 enlarge-button
   rotate: false
   xy: 259, 725
@@ -190,6 +197,15 @@ enlarge-button
   offset: 0, 0
   index: -1
 list-selection
+  rotate: false
+  xy: 850, 1801
+  size: 16, 16
+  split: 2, 2, 2, 2
+  pad: 0, 0, 0, 0
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+text-field-background
   rotate: false
   xy: 850, 1801
   size: 16, 16
@@ -221,6 +237,13 @@ sub-menu-button
   xy: 515, 1141
   size: 64, 64
   orig: 64, 64
+  offset: 0, 0
+  index: -1
+text-field-selection
+  rotate: false
+  xy: 259, 707
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
 window
