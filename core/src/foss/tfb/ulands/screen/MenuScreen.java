@@ -1,5 +1,7 @@
 package foss.tfb.ulands.screen;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import foss.tfb.ulands.UlandsTFBGame;
 
 abstract public class MenuScreen extends DefaultScreen
@@ -18,7 +20,10 @@ abstract public class MenuScreen extends DefaultScreen
     @Override
     public void render(float delta)
     {
-
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        stage.act();
+        stage.draw();
     }
 
     @Override

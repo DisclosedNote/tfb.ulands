@@ -6,6 +6,7 @@ buildscript {
         mavenCentral()
         gradlePluginPortal()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://repo.clojars.org/" }
         google()
     }
     dependencies {
@@ -52,7 +53,7 @@ project(":desktop") {
         api "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-bullet-platform:$gdxVersion:natives-desktop"
-        
+        api "kryonet:kryonet:2.21"
     }
 }
 
@@ -86,7 +87,7 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-bullet-platform:$gdxVersion:natives-arm64-v8a"
         natives "com.badlogicgames.gdx:gdx-bullet-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-bullet-platform:$gdxVersion:natives-x86_64"
-        
+        api "kryonet:kryonet:2.21"
     }
 }
 
@@ -104,7 +105,7 @@ project(":ios") {
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-ios"
         api "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-ios"
         api "com.badlogicgames.gdx:gdx-bullet-platform:$gdxVersion:natives-ios"
-        
+        api "kryonet:kryonet:2.21"
     }
 }
 
@@ -123,6 +124,6 @@ project(":core") {
         api "com.kotcrab.vis:vis-ui:1.3.0"
         api "net.dermetfan.libgdx-utils:libgdx-utils:0.13.4"
         api "net.dermetfan.libgdx-utils:libgdx-utils-box2d:0.13.4"
-        
+        api "kryonet:kryonet:2.21"
     }
 }

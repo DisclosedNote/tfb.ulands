@@ -31,6 +31,7 @@ abstract public class DefaultScreen implements Screen
     public void dispose()
     {
         this.game.getInputMultiplexer().removeProcessor(this.stage);
+        stage.dispose();
     }
 
     public Stage getStage() {

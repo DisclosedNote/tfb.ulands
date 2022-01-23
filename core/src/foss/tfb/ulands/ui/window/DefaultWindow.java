@@ -30,23 +30,27 @@ public class DefaultWindow extends Window {
     public float lastW, lastH = 0;
     public float lastX, lastY = 0;
 
-    public DefaultWindow(String title, Skin skin) {
+    public DefaultWindow(String title, Skin skin, boolean closeButtonEnabled, boolean enlargeButtonEnabled) {
         super(title, skin);
-        init();
+        init(closeButtonEnabled, enlargeButtonEnabled);
     }
 
-    public DefaultWindow(String title, Skin skin, String styleName) {
+    public DefaultWindow(String title, Skin skin, String styleName, boolean closeButtonEnabled, boolean enlargeButtonEnabled) {
         super(title, skin, styleName);
-        init();
+        init(closeButtonEnabled, enlargeButtonEnabled);
     }
 
-    public DefaultWindow(String title, WindowStyle style) {
+    public DefaultWindow(String title, WindowStyle style, boolean closeButtonEnabled, boolean enlargeButtonEnabled) {
         super(title, style);
-        init();
+        init(closeButtonEnabled, enlargeButtonEnabled);
     }
 
     protected ShapeRenderer shapeRenderer;
-    protected void init(){
+    protected void init(boolean closeButtonEnabled, boolean enlargeButtonEnabled){
+
+        this.closeButtonEnabled = closeButtonEnabled;
+        this.enlargeButtonEnabled = enlargeButtonEnabled;
+
         this.setResizeBorder(30);
 
         this.setMovable(true);
@@ -210,18 +214,9 @@ public class DefaultWindow extends Window {
         return closeButtonEnabled;
     }
 
-    public void setCloseButtonEnabled(boolean closeButtonEnabled)
-    {
-        this.closeButtonEnabled = closeButtonEnabled;
-    }
-
     public boolean isEnlargeButtonEnabled()
     {
         return enlargeButtonEnabled;
     }
 
-    public void setEnlargeButtonEnabled(boolean enlargeButtonEnabled)
-    {
-        this.enlargeButtonEnabled = enlargeButtonEnabled;
-    }
 }
