@@ -29,4 +29,9 @@ public class Ipv4Field extends TextField
         this.setTextFieldFilter((textField, c) -> (c >= 48 && c <= 57) || c == 46);
     }
 
+    public String getIP()
+    {
+        return this.getText();
+    }
+
 }

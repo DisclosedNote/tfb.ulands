@@ -2,6 +2,7 @@ package foss.tfb.ulands.ui.textfiled;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import foss.tfb.ulands.net.Network;
 
 public class PortField extends TextField
 {
@@ -36,6 +37,14 @@ public class PortField extends TextField
         });
     }
 
+    public int getPort()
+    {
+        try {
+            return Integer.parseInt(this.getText());
+        } catch (NumberFormatException ignored) {
+            return Network.DEFAULT_GAME_PORT;
+        }
+    }
 
 
 }
