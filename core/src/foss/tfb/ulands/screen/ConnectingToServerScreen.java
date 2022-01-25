@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import foss.tfb.ulands.UlandsTFBGame;
-import foss.tfb.ulands.ui.DefaultLabel;
 import foss.tfb.ulands.ui.window.DefaultWindow;
 
 import java.io.IOException;
@@ -32,7 +31,7 @@ public class ConnectingToServerScreen extends MenuScreen
     {
         Skin skin = UlandsTFBGame.getSkin();
 
-        status = new DefaultLabel("Idle", skin, UlandsTFBGame.DEFAULT_FONT);
+        status = new Label("Idle", skin, UlandsTFBGame.DEFAULT_FONT);
         status.setAlignment(Align.center);
         status.setWrap(true);
 
