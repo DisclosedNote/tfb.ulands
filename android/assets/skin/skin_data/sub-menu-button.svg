@@ -1,18 +1,14 @@
 <svg width="64" height="64" version="1.1" viewBox="0 0 16.933 16.933" xmlns="http://www.w3.org/2000/svg">
- <g transform="matrix(.81959 0 0 .81959 -5.3656 -2.8239)" fill="#008000">
-  <circle cx="8.4665" cy="8.4665" r="1.3096" stroke="#008000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".097936"/>
-  <rect x="10.435" y="7.3952" width="16.145" height="2.0639"/>
+ <g transform="matrix(.69401 0 0 .69401 2.5907 2.5907)" fill="#008000">
+  <g transform="matrix(1.4497,0,0,1.4497,-3.8072,-9.8458)">
+   <circle cx="8.4665" cy="8.4665" r="1.3096" stroke="#008000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".097936"/>
+  </g>
+  <g transform="matrix(1.4497,0,0,1.4497,-3.8072,-3.8072)">
+   <circle cx="8.4665" cy="8.4665" r="1.3096" stroke="#008000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".097936"/>
+  </g>
+  <g transform="matrix(1.4497,0,0,1.4497,-3.8072,2.2314)">
+   <circle cx="8.4665" cy="8.4665" r="1.3096" stroke="#008000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".097936"/>
+  </g>
  </g>
- <g transform="matrix(.81959 0 0 .81959 -5.3525 .076994)" fill="#008000">
-  <circle cx="8.4665" cy="8.4665" r="1.3096" stroke="#008000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".097936"/>
-  <rect x="10.435" y="7.3952" width="16.145" height="2.0639"/>
- </g>
- <g transform="matrix(.81959 0 0 .81959 -5.3393 2.9779)" fill="#008000">
-  <circle cx="8.4665" cy="8.4665" r="1.3096" stroke="#008000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".097936"/>
-  <rect x="10.435" y="7.3952" width="16.145" height="2.0639"/>
- </g>
- <g transform="matrix(.81959 0 0 .81959 -5.3787 5.8788)" fill="#008000">
-  <circle cx="8.4665" cy="8.4665" r="1.3096" stroke="#008000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".097936"/>
-  <rect x="10.435" y="7.3952" width="16.145" height="2.0639"/>
- </g>
+ <rect x=".17897" y=".17897" width="16.575" height="16.575" fill="none" stroke="#008000" stroke-linecap="square" stroke-width=".35794"/>
 </svg>

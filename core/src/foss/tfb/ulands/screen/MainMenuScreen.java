@@ -155,6 +155,14 @@ public class MainMenuScreen extends MenuScreen
         stage.addActor(multiplayerWindow);
     }
 
+    @Override
+    public void resize(int width, int height)
+    {
+        super.resize(width, height);
+        multiplayerWindow.setPosition(width / 2f, height / 2f, Align.center);
+        window.setPosition(width / 2f, height / 2f, Align.center);
+    }
+
     abstract static class MainMenuAction
     {
         protected String title;

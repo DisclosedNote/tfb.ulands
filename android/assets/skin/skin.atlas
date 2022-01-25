@@ -177,7 +177,7 @@ button-up
   index: -1
 close-button
   rotate: false
-  xy: 784, 1753
+  xy: 515, 1141
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
@@ -191,7 +191,7 @@ cursor
   index: -1
 enlarge-button
   rotate: false
-  xy: 259, 725
+  xy: 784, 1753
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
@@ -234,7 +234,7 @@ scroll-knob
   index: -1
 sub-menu-button
   rotate: false
-  xy: 515, 1141
+  xy: 259, 725
   size: 64, 64
   orig: 64, 64
   offset: 0, 0

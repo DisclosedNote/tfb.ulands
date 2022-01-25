@@ -20,9 +20,7 @@ public class GameClient
 
         Network.register(client);
 
-        /*
-
-        */
+        
     }
 
     public void connect(String host, int port) throws IOException
