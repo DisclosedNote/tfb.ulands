@@ -37,7 +37,6 @@ public class HostLocalGameScreen extends MenuScreen
 
     protected void init()
     {
-
         activityListener = new Listener(){
             @Override
             public void connected(Connection connection)
@@ -82,7 +81,8 @@ public class HostLocalGameScreen extends MenuScreen
                 host();
             }
             @Override
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button)
+            {
                 return true;
             }
         });
@@ -90,8 +90,6 @@ public class HostLocalGameScreen extends MenuScreen
         ip = new Ipv4Field("127.0.0.1", skin);
 
         port = new PortField("19784", skin);
-
-
 
 
 //        table.setDebug(true);
@@ -121,8 +119,6 @@ public class HostLocalGameScreen extends MenuScreen
 
         logsWindow.add(logsScroller);
         stage.addActor(logsWindow);
-
-
     }
 
     @Override

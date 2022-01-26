@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import foss.tfb.ulands.assets.AssetManager;
 import foss.tfb.ulands.net.client.GameClient;
 import foss.tfb.ulands.net.server.GameServer;
 import foss.tfb.ulands.screen.DefaultScreen;
@@ -17,6 +18,8 @@ public class UlandsTFBGame extends Game {
 	protected static Skin skin;
 	protected InputMultiplexer multiplexer;
 
+	public static AssetManager assetManager;
+
 	protected GameServer server = new GameServer();
 	protected GameClient client = new GameClient();
 
@@ -27,6 +30,9 @@ public class UlandsTFBGame extends Game {
 
 		skin = new Skin(Gdx.files.internal("skin/skin.json"));
 		this.setScreen(new MainMenuScreen(this));
+
+		assetManager = new AssetManager();
+		assetManager.finishLoading();
 	}
 
 	public InputMultiplexer getInputMultiplexer() {
@@ -34,7 +40,8 @@ public class UlandsTFBGame extends Game {
 	}
 
 	@Override
-	public void render () {
+	public void render ()
+	{
 		super.render();
 	}
 	
