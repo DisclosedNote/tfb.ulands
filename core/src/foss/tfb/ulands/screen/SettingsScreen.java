@@ -29,10 +29,10 @@ public class SettingsScreen extends MenuScreen
     }
     public void draw()
     {
-        this.stage.draw();
+        this.uiStage.draw();
         shapeRenderer.begin();
         shapeRenderer.setColor(new Color(111,111,111,0.5f));
-        shapeRenderer.rect(stage.getWidth()/2-100,stage.getHeight()/2-100,200,200);
+        shapeRenderer.rect(uiStage.getWidth()/2-100, uiStage.getHeight()/2-100,200,200);
         shapeRenderer.end();
     }
 }

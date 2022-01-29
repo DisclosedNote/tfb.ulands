@@ -9,7 +9,8 @@ public class Network {
 
     static public void register (EndPoint endPoint) {
         Kryo kryo = endPoint.getKryo();
-        kryo.register(RegisterName.class);
+        kryo.register(Authorize.class);
+        kryo.register(AuthorizeStatus.class);
         kryo.register(String[].class);
         kryo.register(ChatMessage.class);
     }
@@ -18,8 +19,13 @@ public class Network {
 
     }
 
-    static public class RegisterName extends Package {
+    static public class Authorize extends Package {
         public String name;
+        public String password;
+    }
+
+    static public class AuthorizeStatus extends Package {
+        public boolean authorized;
     }
 
     static public class ChatMessage extends Package {

@@ -6,19 +6,24 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import foss.tfb.ulands.net.client.GameClient;
 import foss.tfb.ulands.net.server.GameServer;
-import foss.tfb.ulands.screen.DefaultScreen;
-import foss.tfb.ulands.screen.MainMenuScreen;
+import foss.tfb.ulands.screen.*;
 
 import java.io.IOException;
 
 public class UlandsTFBGame extends Game {
 
-	final public static String DEFAULT_FONT = "default";
+	final public static String DEFAULT_FONT_STYLE = "default";
+	final public static String SMALL_FONT_NAME = "roboto-11-regular";
 	protected static Skin skin;
 	protected InputMultiplexer multiplexer;
 
 	protected GameServer server = new GameServer();
 	protected GameClient client = new GameClient();
+
+	public GameScreen gameScreen;
+	public MainMenuScreen mainMenuScreen;
+	public SettingsScreen settingsScreen;
+	public HostLocalGameScreen hostLocalGameScreen;
 
 	@Override
 	public void create () {
@@ -26,8 +31,19 @@ public class UlandsTFBGame extends Game {
 		Gdx.input.setInputProcessor(multiplexer);
 
 		skin = new Skin(Gdx.files.internal("skin/skin.json"));
-		this.setScreen(new MainMenuScreen(this));
+
+		createScreens();
+
+		this.setScreen(mainMenuScreen);
 	}
+
+	public void createScreens()
+	{
+		hostLocalGameScreen = new HostLocalGameScreen(this);
+		mainMenuScreen = new MainMenuScreen(this);
+		settingsScreen = new SettingsScreen(this);
+	}
+
 
 	public InputMultiplexer getInputMultiplexer() {
 		return multiplexer;
@@ -40,6 +56,7 @@ public class UlandsTFBGame extends Game {
 	
 	@Override
 	public void dispose () {
+		server.stop();
 		this.getScreen().dispose();
 	}
 
@@ -47,7 +64,7 @@ public class UlandsTFBGame extends Game {
 	public void resize(int width, int height) {
 		super.resize(width, height);
 		DefaultScreen screen = (DefaultScreen) this.getScreen();
-		screen.getStage().getViewport().setScreenSize(width, height);
+		screen.getUIStage().getViewport().setScreenSize(width, height);
 	}
 
 	public static Skin getSkin() {

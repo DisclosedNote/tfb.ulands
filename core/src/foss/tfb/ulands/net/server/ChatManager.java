@@ -2,15 +2,17 @@ package foss.tfb.ulands.net.server;
 
 import foss.tfb.ulands.net.GameConnection;
 import foss.tfb.ulands.net.Network.ChatMessage;
+import foss.tfb.ulands.stage.Player;
 
-public class ChatManager
+public class ChatManager extends Manager
 {
 
-    protected GameServer server;
     public ChatManager(GameServer server)
     {
-        this.server = server;
+        super(server);
     }
+
+    // TODO: message listeners
 
     protected ChatMessage formMessage(String chatMessage)
     {
@@ -18,6 +20,8 @@ public class ChatManager
         message.text = chatMessage;
         return message;
     }
+
+    // TODO: turn send by Broadcast to send by Player (?)
 
     public void sendChatMessage(GameServer.Broadcast broadcast, String chatMessage)
     {
@@ -27,14 +31,16 @@ public class ChatManager
 
     public void sendConnected(GameConnection connection)
     {
-        sendChatMessage(new GameServer.BroadcastToAllExcept(connection.getID()),
-                "Player '" + connection.name + "' connected.");
+        Player player = connection.getAssociatedPlayer();
+        sendChatMessage(new GameServer.BroadcastToAll(),
+                "Player '" + player.getUsername() + "' connected.");
     }
 
     public void sendDisconnected(GameConnection connection)
     {
-        sendChatMessage(new GameServer.BroadcastToAllExcept(connection.getID()),
-                "Player '" + connection.name + "' disconnected.");
+        Player player = connection.getAssociatedPlayer();
+        sendChatMessage(new GameServer.BroadcastToAll(),
+                "Player '" + player.getUsername() + "' disconnected.");
     }
 
 }

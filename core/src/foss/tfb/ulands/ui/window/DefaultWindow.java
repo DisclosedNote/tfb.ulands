@@ -2,6 +2,7 @@ package foss.tfb.ulands.ui.window;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import foss.tfb.ulands.UlandsTFBGame;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -45,7 +47,10 @@ public class DefaultWindow extends Window {
         init(closeButtonEnabled, enlargeButtonEnabled);
     }
 
+    BitmapFont sizeFont;
+    int sizeInfoOffset = 25;
     protected ShapeRenderer shapeRenderer;
+
     protected void init(boolean closeButtonEnabled, boolean enlargeButtonEnabled){
 
         this.closeButtonEnabled = closeButtonEnabled;
@@ -65,6 +70,8 @@ public class DefaultWindow extends Window {
 
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setAutoShapeType(true);
+
+        sizeFont = getSkin().getFont(UlandsTFBGame.SMALL_FONT_NAME);
     }
 
     protected void closeButton()
@@ -218,5 +225,11 @@ public class DefaultWindow extends Window {
     {
         return enlargeButtonEnabled;
     }
+    @Override
+    public void draw(Batch batch, float parentAlpha)
+    {
+        super.draw(batch, parentAlpha);
 
+        sizeFont.draw(batch, (int)getWidth() + " x " + (int)getHeight(), getX() + sizeInfoOffset, getY() + sizeFont.getLineHeight() + sizeInfoOffset);
+    }
 }

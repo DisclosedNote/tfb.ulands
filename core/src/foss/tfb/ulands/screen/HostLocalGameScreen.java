@@ -32,6 +32,7 @@ public class HostLocalGameScreen extends MenuScreen
     protected ChatLogger chatLogger;
 
     protected ImageTextButton hostButton;
+    protected ImageTextButton backButton;
 
     protected Listener activityListener;
 
@@ -48,7 +49,8 @@ public class HostLocalGameScreen extends MenuScreen
             @Override
             public void disconnected(Connection connection)
             {
-                chatLogger.add("Peer disconnected: " + connection.getRemoteAddressTCP().toString());
+//                chatLogger.add("Peer disconnected: " + connection.getRemoteAddressTCP().toString()); // Exception in thread "Server" java.lang.NullPointerException
+                chatLogger.add("Peer disconnected.");
             }
 
             @Override
@@ -87,6 +89,20 @@ public class HostLocalGameScreen extends MenuScreen
             }
         });
 
+        backButton = new ImageTextButton("Back", skin);
+        backButton.setWidth(160);
+        backButton.setHeight(60);
+        backButton.addListener(new InputListener(){
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                game.setScreen(game.mainMenuScreen); // TODO: set parent screen
+            }
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        });
+
         ip = new Ipv4Field("127.0.0.1", skin);
 
         port = new PortField("19784", skin);
@@ -101,6 +117,8 @@ public class HostLocalGameScreen extends MenuScreen
         table.add(port).height(port.getHeight()).width(port.getWidth()).fillX();
         table.row().colspan(3).expandX().fillX();
         table.add(hostButton).height(hostButton.getHeight()).width(hostButton.getWidth()).fillX();
+        table.row().colspan(3).expandX().fillX();
+        table.add(backButton).height(backButton.getHeight()).width(backButton.getWidth()).fillX();
 //        table.row().colspan(3).expandX().fillX();
 
 
@@ -108,19 +126,20 @@ public class HostLocalGameScreen extends MenuScreen
         scroller.setFadeScrollBars(false);
 
         window.add(scroller);
-        stage.addActor(window);
+        uiStage.addActor(window);
 
 
         /* Logs */
 
         logsWindow = new DefaultWindow("Logs", skin, false, false);
-        logsWindow.setBounds(100, 100, 300, 300);
+        float width = uiStage.getWidth();
+        logsWindow.setBounds(0, uiStage.getHeight(), width, 160);
 
         chatLogger = new ChatLogger(skin);
         final ScrollPane logsScroller = new ScrollPane(chatLogger, skin);
 
         logsWindow.add(logsScroller);
-        stage.addActor(logsWindow);
+        uiStage.addActor(logsWindow);
 
 
     }
@@ -136,10 +155,16 @@ public class HostLocalGameScreen extends MenuScreen
 
     protected void host()
     {
+        GameServer gameServer = this.game.getLocalGameServer();
+        if(gameServer.isStarted()) {
+            chatLogger.add("Server is already running!");
+            return;
+        }
 
         this.game.startLocalGameServer(ip.getText(), port.getPort());
 
-        GameServer gameServer = this.game.getLocalGameServer();
+
+
         gameServer.addListener(activityListener);
 
         chatLogger.add("Hosting at " + ip.getText() + " (port " + port.getPort() + ")");

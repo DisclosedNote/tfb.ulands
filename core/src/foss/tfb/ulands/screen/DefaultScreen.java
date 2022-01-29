@@ -7,7 +7,7 @@ import foss.tfb.ulands.UlandsTFBGame;
 
 abstract public class DefaultScreen implements Screen
 {
-    protected Stage stage = new Stage(new ScreenViewport());
+    protected Stage uiStage = new Stage(new ScreenViewport());
     protected UlandsTFBGame game;
 
     public DefaultScreen(UlandsTFBGame game)
@@ -18,23 +18,23 @@ abstract public class DefaultScreen implements Screen
     @Override
     public void show()
     {
-        this.game.getInputMultiplexer().addProcessor(this.stage);
+        this.game.getInputMultiplexer().addProcessor(this.uiStage);
     }
 
     @Override
     public void hide()
     {
-        this.game.getInputMultiplexer().removeProcessor(this.stage);
+        this.game.getInputMultiplexer().removeProcessor(this.uiStage);
     }
 
     @Override
     public void dispose()
     {
-        this.game.getInputMultiplexer().removeProcessor(this.stage);
-        stage.dispose();
+        this.game.getInputMultiplexer().removeProcessor(this.uiStage);
+        uiStage.dispose();
     }
 
-    public Stage getStage() {
-        return stage;
+    public Stage getUIStage() {
+        return uiStage;
     }
 }

@@ -14,7 +14,7 @@ abstract public class MenuScreen extends DefaultScreen
     public void resize(int width, int height)
     {
         // Do not center the camera to keep sharp render
-        stage.getViewport().update(width, height, true);
+        uiStage.getViewport().update(width, height, true);
     }
 
     @Override
@@ -22,8 +22,8 @@ abstract public class MenuScreen extends DefaultScreen
     {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stage.act();
-        stage.draw();
+        uiStage.act();
+        uiStage.draw();
     }
 
     @Override

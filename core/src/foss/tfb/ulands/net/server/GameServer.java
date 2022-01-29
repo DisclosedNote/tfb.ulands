@@ -5,7 +5,8 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import foss.tfb.ulands.net.GameConnection;
 import foss.tfb.ulands.net.Network;
-import foss.tfb.ulands.net.Network.RegisterName;
+import foss.tfb.ulands.net.Network.Authorize;
+import foss.tfb.ulands.stage.Player;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -13,94 +14,83 @@ import java.net.InetSocketAddress;
 public class GameServer
 {
     protected ChatManager chatManager;
+    protected MapManager mapManager;
+    protected PlayerManager playerManager;
+
     protected Server server;
     protected boolean isStarted = false;
     protected int port = Network.DEFAULT_GAME_PORT;
     protected String ip = Network.DEFAULT_IP_ADDRESS;
-    protected Listener listener;
+    protected Thread logicThread;
 
     public GameServer()
     {
 
-        this.server = new Server(){
-            protected Connection newConnection () {
+        /* Server instance */
+        server = new Server()
+        {
+            protected Connection newConnection ()
+            {
                 // By providing our own connection implementation, we can store per
                 // connection state without a connection ID to state look up.
-                return new GameConnection();
+                GameConnection gameConnection = new GameConnection();
+                gameConnection.setAssociatedPlayer(playerManager.initializePlayer(gameConnection));
+                return gameConnection;
             }
         };
+
+        /* Network events listener*/
+        server.addListener(new Listener(){
+            @Override
+            public void connected(Connection connection)
+            {
+                GameServer.this.connected(connection);
+            }
+
+            @Override
+            public void disconnected(Connection connection)
+            {
+                GameServer.this.disconnected(connection);
+            }
+
+            @Override
+            public void received(Connection connection, Object o)
+            {
+                GameServer.this.received(connection, o);
+            }
+
+            @Override
+            public void idle(Connection connection)
+            {
+                GameServer.this.idle(connection);
+            }
+        });
 
         Network.register(server);
 
-        this.chatManager = new ChatManager(this);
+        /* Managers */
+        chatManager = new ChatManager(this);
+        mapManager = new MapManager(this);
+        playerManager = new PlayerManager(this);
 
-        this.listener = new Listener() {
-            public void received (Connection c, Object object) {
-                // We know all connections for this server are actually ChatConnections.
-                GameConnection connection = (GameConnection)c;
-
-                if (object instanceof RegisterName) {
-                    // Validate object (if sent from hacker)
-                    if (connection.name != null) return;
-
-                    // Ignore the object if the name is invalid.
-                    String name = ((RegisterName)object).name;
-                    if (name == null) return;
-                    name = name.trim();
-                    if (name.length() == 0) return;
-
-                    // Store the name on the connection.
-                    connection.name = name;
-
-                    chatManager.sendConnected(connection);
-
-                    // Send everyone a new list of connection names.
-//                    updateNames();
-                    return;
-                }
-
-                /*
-                if (object instanceof ChatMessage) {
-                    // Ignore the object if a client tries to chat before registering a name.
-                    if (connection.name == null) return;
-                    ChatMessage chatMessage = (ChatMessage)object;
-                    // Ignore the object if the chat message is invalid.
-                    String message = chatMessage.text;
-                    if (message == null) return;
-                    message = message.trim();
-                    if (message.length() == 0) return;
-                    // Prepend the connection's name and send to everyone.
-                    chatMessage.text = connection.name + ": " + message;
-                    server.sendToAllTCP(chatMessage);
-                    return;
-                }
-                 */
-            }
-
-            public void disconnected (Connection c) {
-                GameConnection connection = (GameConnection) c;
-                if (connection.name != null) {
-                    // Announce to everyone that someone (with a registered name) has left.
-                    chatManager.sendDisconnected(connection);
-
-//                    updateNames();
-                }
-            }
-        };
-
-        this.server.addListener(this.listener);
-
+        /* Logic thread */
+        logicThread = new Thread(GameServer.this::think);
     }
 
     public void start()
     {
         if(isStarted) return;
 
+        if(logicThread.isAlive())
+            logicThread.interrupt();
+
         try {
             server.start();
             server.bind(this.port);
+            logicThread.start();
             isStarted = true;
         } catch (IOException e) {
+            // TODO: better error message
             e.printStackTrace();
         }
     }
@@ -108,6 +98,8 @@ public class GameServer
     public void stop()
     {
         if(!isStarted) return;
+        // if(logicThread.isAlive())
+            logicThread.interrupt();
         server.stop();
     }
 
@@ -148,13 +140,102 @@ public class GameServer
         this.server.removeListener(listener);
     }
 
+    public Connection[] getConnections()
+    {
+        return this.server.getConnections();
+    }
+
     public Server getServer()
     {
         return server;
     }
 
+    /* Logic thread */
+    protected void think()
+    {
+        while(true)
+        {
+
+        }
+    }
+
+    /* Network */
+
+    public void connected(Connection c)
+    {
+        GameConnection gameConnection = (GameConnection) c;
+
+    }
+
+    public void disconnected(Connection c)
+    {
+        GameConnection connection = (GameConnection) c;
+        Player player = connection.getAssociatedPlayer();
+        if (player.isAuthorized()) {
+            // Announce to everyone that someone (with a registered name) has left.
+            chatManager.sendDisconnected(connection);
+
+            playerManager.removePlayer(player);
+
+            // TODO: send player disconnect
+        }
+    }
+
+    public void received(Connection c, Object object)
+    {
+        // We know all connections for this server are actually ChatConnections.
+        GameConnection connection = (GameConnection)c;
+        Player player = connection.getAssociatedPlayer();
+
+        if (object instanceof Authorize) {
+            // Validate object (if sent from hacker)
+            if (player.isAuthorized()) return;
+
+            // Ignore the object if the name is invalid.
+            String name = ((Authorize) object).name;
+            if (name == null) return;
+            name = name.trim();
+            if (name.length() == 0) return;
+
+            // Store the name on the connection.
+            player.setUsername(name);
+            player.setAuthorized(true);
+            chatManager.sendConnected(connection);
+//            chatManager.sendChatMessage(new BroadcastTo(connection.getID()), "Hello! Nice to meet you!");
+
+            playerManager.sendAuthorizedStatus(player);
+
+            // TODO: send player connect (send create Player instance)
+            return;
+        }
+
+        /*
+        if (object instanceof ChatMessage) {
+            // Ignore the object if a client tries to chat before registering a name.
+            if (connection.name == null) return;
+            ChatMessage chatMessage = (ChatMessage)object;
+            // Ignore the object if the chat message is invalid.
+            String message = chatMessage.text;
+            if (message == null) return;
+            message = message.trim();
+            if (message.length() == 0) return;
+            // Prepend the connection's name and send to everyone.
+            chatMessage.text = connection.name + ": " + message;
+            server.sendToAllTCP(chatMessage);
+            return;
+        }
+         */
+    }
+
+    public void idle(Connection c)
+    {
+
+    }
+
+    /* Broadcast */
+
     static public class Broadcast {
-        Network.Package data;
+        Network.Package data = new Network.Package();
     }
 
     static public class BroadcastToAll extends Broadcast {
@@ -179,6 +260,11 @@ public class GameServer
         }
     }
 
+    /**
+     * Raw TCP-connection send method.
+     * Use if low-level access is required (ex. send data to specific connection ID, not a player).
+     * See {@link PlayerManager#sendPackage} for sending {@link Network.Package} to specific players.
+     */
     public void send(Broadcast type)
     {
         if(type instanceof BroadcastTo)

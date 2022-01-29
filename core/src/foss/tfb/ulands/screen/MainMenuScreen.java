@@ -36,7 +36,7 @@ public class MainMenuScreen extends MenuScreen
 
         Table table = new Table(skin);
 
-        Label title = new Label("Title Screen", skin, UlandsTFBGame.DEFAULT_FONT);
+        Label title = new Label("Title Screen", skin, UlandsTFBGame.DEFAULT_FONT_STYLE);
         title.setAlignment(Align.center);
 
         ArrayList<MainMenuAction> actions = new ArrayList<>();
@@ -45,7 +45,7 @@ public class MainMenuScreen extends MenuScreen
             @Override
             public void doAction()
             {
-                game.setScreen(new HostLocalGameScreen(game));
+                game.setScreen(game.hostLocalGameScreen);
             }
         });
 
@@ -107,7 +107,7 @@ public class MainMenuScreen extends MenuScreen
         scroller.setFadeScrollBars(false);
 
         window.add(scroller);
-        stage.addActor(window);
+        uiStage.addActor(window);
     }
 
     public void initMultiplayerWindow(Skin skin)
@@ -152,7 +152,7 @@ public class MainMenuScreen extends MenuScreen
         scroller.setFadeScrollBars(true);
 
         multiplayerWindow.add(scroller);
-        stage.addActor(multiplayerWindow);
+        uiStage.addActor(multiplayerWindow);
     }
 
     @Override
