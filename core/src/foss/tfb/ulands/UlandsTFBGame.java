@@ -73,12 +73,9 @@ public class UlandsTFBGame extends Game {
 
 	public void startLocalGameServer(String ip, int port)
 	{
-		if(this.server != null && this.server.isStarted()){
+		if(this.server.isStarted()){
 			this.server.stop();
-			this.server = null;
 		}
-
-		this.server = new GameServer();
 
 		try {
 			this.server.setIPPort(ip, port);

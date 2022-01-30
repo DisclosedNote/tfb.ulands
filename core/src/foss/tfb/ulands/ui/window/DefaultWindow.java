@@ -32,6 +32,8 @@ public class DefaultWindow extends Window {
     public float lastW, lastH = 0;
     public float lastX, lastY = 0;
 
+    protected boolean showSize = false;
+
     public DefaultWindow(String title, Skin skin, boolean closeButtonEnabled, boolean enlargeButtonEnabled) {
         super(title, skin);
         init(closeButtonEnabled, enlargeButtonEnabled);
@@ -184,6 +186,15 @@ public class DefaultWindow extends Window {
         ArrayList<WindowAction> actions = new ArrayList<>();
         final DefaultWindow w = DefaultWindow.this;
 
+        actions.add(new WindowAction("Toggle show size")
+        {
+            @Override
+            public void doAction()
+            {
+                showSize = !showSize;
+            }
+        });
+
         actions.add(new WindowAction("Rotate r90d")
         {
             @Override
@@ -230,6 +241,12 @@ public class DefaultWindow extends Window {
     {
         super.draw(batch, parentAlpha);
 
-        sizeFont.draw(batch, (int)getWidth() + " x " + (int)getHeight(), getX() + sizeInfoOffset, getY() + sizeFont.getLineHeight() + sizeInfoOffset);
+        if(showSize)
+            sizeFont.draw(
+                batch,
+                (int)getWidth() + " x " + (int)getHeight(),
+                getX() + sizeInfoOffset,
+                getY() + sizeFont.getLineHeight() + sizeInfoOffset
+            );
     }
 }

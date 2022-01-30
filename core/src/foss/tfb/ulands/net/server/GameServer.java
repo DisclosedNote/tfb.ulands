@@ -13,6 +13,9 @@ import java.net.InetSocketAddress;
 
 public class GameServer
 {
+
+    // TODO: server dispose
+
     protected ChatManager chatManager;
     protected MapManager mapManager;
     protected PlayerManager playerManager;
@@ -76,6 +79,25 @@ public class GameServer
         /* Logic thread */
         logicThread = new Thread(GameServer.this::think);
     }
+
+    /* Managers */
+
+    public ChatManager getChatManager()
+    {
+        return chatManager;
+    }
+
+    public MapManager getMapManager()
+    {
+        return mapManager;
+    }
+
+    public PlayerManager getPlayerManager()
+    {
+        return playerManager;
+    }
+
+    /* Basic logic */
 
     public void start()
     {
@@ -235,7 +257,7 @@ public class GameServer
     /* Broadcast */
 
     static public class Broadcast {
-        Network.Package data = new Network.Package();
+        public Network.Package data = new Network.Package();
     }
 
     static public class BroadcastToAll extends Broadcast {
@@ -243,7 +265,7 @@ public class GameServer
     }
 
     static public class BroadcastTo extends Broadcast {
-        int sendTo;
+        public int sendTo;
 
         public BroadcastTo(int sendTo)
         {
@@ -252,7 +274,7 @@ public class GameServer
     }
 
     static public class BroadcastToAllExcept extends Broadcast {
-        int sendExcept;
+        public int sendExcept;
 
         public BroadcastToAllExcept(int sendExcept)
         {

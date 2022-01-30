@@ -2,10 +2,14 @@ package foss.tfb.ulands.net.server;
 
 import foss.tfb.ulands.net.GameConnection;
 import foss.tfb.ulands.net.Network.ChatMessage;
+import foss.tfb.ulands.net.server.listener.ChatManagerListener;
 import foss.tfb.ulands.stage.Player;
+
+import java.util.ArrayList;
 
 public class ChatManager extends Manager
 {
+    protected ArrayList<ChatManagerListener> listeners = new ArrayList<>();
 
     public ChatManager(GameServer server)
     {
@@ -25,6 +29,12 @@ public class ChatManager extends Manager
 
     public void sendChatMessage(GameServer.Broadcast broadcast, String chatMessage)
     {
+        for(ChatManagerListener listener : listeners)
+        {
+            listener.onChatMessageSent(broadcast, chatMessage);
+            // TODO: prevent from sending if listener returns false
+        }
+
         broadcast.data = formMessage(chatMessage);
         this.server.send(broadcast);
     }
@@ -41,6 +51,17 @@ public class ChatManager extends Manager
         Player player = connection.getAssociatedPlayer();
         sendChatMessage(new GameServer.BroadcastToAll(),
                 "Player '" + player.getUsername() + "' disconnected.");
+    }
+
+    /* Listeners */
+    public boolean addListener(ChatManagerListener listener)
+    {
+        return this.listeners.add(listener);
+    }
+
+    public boolean removeListener(ChatManagerListener listener)
+    {
+        return this.listeners.remove(listener);
     }
 
 }

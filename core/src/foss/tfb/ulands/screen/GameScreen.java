@@ -4,9 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
@@ -15,6 +17,8 @@ import foss.tfb.ulands.net.Network;
 import foss.tfb.ulands.net.client.GameClient;
 import foss.tfb.ulands.ui.ChatLogger;
 import foss.tfb.ulands.ui.window.DefaultWindow;
+
+import java.util.ArrayList;
 
 public class GameScreen extends DefaultScreen
 {
@@ -32,12 +36,17 @@ public class GameScreen extends DefaultScreen
     protected SpriteBatch batch;
 
     protected DefaultWindow chatWindow;
+    protected DefaultWindow menuWindow;
     protected ChatLogger chatLogger;
     //implements InputProcessor
+
+    protected GameClient client;
 
     public GameScreen(UlandsTFBGame game)
     {
         super(game);
+
+        client = game.getClient();
 
         batch = new SpriteBatch();
         gameCamera = new OrthographicCamera();
@@ -54,7 +63,7 @@ public class GameScreen extends DefaultScreen
 
         initializeUI();
 
-        GameClient gameClient = game.getClient();
+
 
         eventsListener = new Listener(){
             @Override
@@ -82,12 +91,14 @@ public class GameScreen extends DefaultScreen
             }
         };
 
-        gameClient.addListener(eventsListener);
+        client.addListener(eventsListener);
     }
 
     public void initializeUI()
     {
         Skin skin = UlandsTFBGame.getSkin();
+
+        /* Chat window */
 
         chatWindow = new DefaultWindow("Chat",
                 skin, false, false);
@@ -100,8 +111,55 @@ public class GameScreen extends DefaultScreen
         chatWindow.add(logsScroller);
         uiStage.addActor(chatWindow);
 
+        /* Menu window */
 
-        chatLogger.add("yo");
+        menuWindow = new DefaultWindow("Menu",
+                skin, false, false);
+        menuWindow.setBounds(100, 100, 500, 200);
+
+        Table table = new Table(skin);
+
+        Label title = new Label("Title Screen", skin, UlandsTFBGame.DEFAULT_FONT_STYLE);
+        title.setAlignment(Align.center);
+
+        ArrayList<MainMenuScreen.MainMenuAction> actions = new ArrayList<>();
+
+        actions.add(new MainMenuScreen.MainMenuAction("Back to main menu", "Disconnect from server and open main menu"){
+            @Override
+            public void doAction()
+            {
+                client.disconnect();
+                game.setScreen(game.mainMenuScreen);
+            }
+        });
+
+        table.row().colspan(3).expandX().fillX();
+        table.add(title).fillX();
+        for(final MainMenuScreen.MainMenuAction action : actions)
+        {
+            ImageTextButton actionButton = new ImageTextButton(action.title, skin);
+            actionButton.setWidth(160);
+            actionButton.setHeight(60);
+            actionButton.addListener(new InputListener(){
+                @Override
+                public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                    action.doAction();
+                }
+                @Override
+                public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                    return true;
+                }
+            });
+            table.row().colspan(3).expandX().fillX();
+            table.add(actionButton).height(actionButton.getHeight()).width(actionButton.getWidth()).fillX();
+        }
+
+        final ScrollPane menuScroller = new ScrollPane(table, skin);
+
+
+        menuWindow.add(menuScroller);
+        uiStage.addActor(menuWindow);
+
     }
 
 
@@ -167,7 +225,7 @@ public class GameScreen extends DefaultScreen
     @Override
     public void dispose()
     {
-        game.getClient().removeListener(eventsListener);
+        client.removeListener(eventsListener);
         super.dispose();
     }
 }

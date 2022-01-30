@@ -9,6 +9,8 @@ import java.io.IOException;
 
 public class GameClient
 {
+    // TODO: client dispose
+
     static public int DEFAULT_TIMEOUT = 5000;
 
     Client client;
@@ -51,6 +53,14 @@ public class GameClient
     public void connect(String host, int port) throws IOException
     {
         client.connect(GameClient.DEFAULT_TIMEOUT, host, port);
+    }
+
+    public void disconnect()
+    {
+        if(client.isConnected())
+        {
+            client.close();
+        }
     }
 
     public void addListener(Listener listener)

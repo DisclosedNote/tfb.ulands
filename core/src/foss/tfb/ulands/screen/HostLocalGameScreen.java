@@ -36,8 +36,11 @@ public class HostLocalGameScreen extends MenuScreen
 
     protected Listener activityListener;
 
+    protected GameServer gameServer;
+
     protected void init()
     {
+        gameServer = this.game.getLocalGameServer();
 
         activityListener = new Listener(){
             @Override
@@ -65,6 +68,7 @@ public class HostLocalGameScreen extends MenuScreen
 //                chatLogger.add("Idle");
             }
         };
+
 
         Skin skin = UlandsTFBGame.getSkin();
         window = new DefaultWindow("Host settings", skin, false, false);
@@ -151,11 +155,11 @@ public class HostLocalGameScreen extends MenuScreen
         GameServer gameServer = this.game.getLocalGameServer();
         gameServer.stop();
         gameServer.removeListener(activityListener);
+        gameServer.getChatManager().removeListener(HostLocalGameScreen.this::onChatMessageSent);
     }
 
     protected void host()
     {
-        GameServer gameServer = this.game.getLocalGameServer();
         if(gameServer.isStarted()) {
             chatLogger.add("Server is already running!");
             return;
@@ -163,13 +167,24 @@ public class HostLocalGameScreen extends MenuScreen
 
         this.game.startLocalGameServer(ip.getText(), port.getPort());
 
-
-
         gameServer.addListener(activityListener);
+        gameServer.getChatManager().addListener(HostLocalGameScreen.this::onChatMessageSent);
 
         chatLogger.add("Hosting at " + ip.getText() + " (port " + port.getPort() + ")");
-
-        hostButton.setDisabled(true);
     }
 
+    void onChatMessageSent(GameServer.Broadcast broadcast, String chatMessage)
+    {
+        String to = "To unknown";
+
+        // "c#123" means "connection id #123"
+        if(broadcast instanceof GameServer.BroadcastToAll)
+            to = "To all";
+        else if(broadcast instanceof GameServer.BroadcastTo)
+            to = "To c#" + ((GameServer.BroadcastTo)broadcast).sendTo;
+        else if(broadcast instanceof GameServer.BroadcastToAllExcept)
+            to = "To all except c#" + ((GameServer.BroadcastToAllExcept)broadcast).sendExcept;
+
+        chatLogger.add(to + ": " + chatMessage);
+    }
 }
