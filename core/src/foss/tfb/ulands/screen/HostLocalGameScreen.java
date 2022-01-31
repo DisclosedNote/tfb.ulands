@@ -140,12 +140,9 @@ public class HostLocalGameScreen extends MenuScreen
         logsWindow.setBounds(0, uiStage.getHeight(), width, 160);
 
         chatLogger = new ChatLogger(skin);
-        final ScrollPane logsScroller = new ScrollPane(chatLogger, skin);
 
-        logsWindow.add(logsScroller);
+        logsWindow.add(chatLogger);
         uiStage.addActor(logsWindow);
-
-
     }
 
     @Override
