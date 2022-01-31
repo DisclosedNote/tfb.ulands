@@ -16,6 +16,7 @@ import foss.tfb.ulands.UlandsTFBGame;
 import foss.tfb.ulands.net.Network;
 import foss.tfb.ulands.net.client.GameClient;
 import foss.tfb.ulands.ui.ChatLogger;
+import foss.tfb.ulands.ui.window.ConsoleWindow;
 import foss.tfb.ulands.ui.window.DefaultWindow;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class GameScreen extends DefaultScreen
     protected ExtendViewport gameViewport;
     protected SpriteBatch batch;
 
-    protected DefaultWindow chatWindow;
+    protected ConsoleWindow chatWindow;
     protected DefaultWindow menuWindow;
     protected ChatLogger chatLogger;
     //implements InputProcessor
@@ -100,15 +101,8 @@ public class GameScreen extends DefaultScreen
 
         /* Chat window */
 
-        chatWindow = new DefaultWindow("Chat",
-                skin, false, false);
-        chatWindow.setBounds(0, 0, 500, 200);
-
-        chatLogger = new ChatLogger(skin);
-        final ScrollPane logsScroller = new ScrollPane(chatLogger, skin);
-
-
-        chatWindow.add(logsScroller);
+        chatWindow = new ConsoleWindow("Chat", skin, false, false);
+        chatLogger = chatWindow.getChatLogger();
         uiStage.addActor(chatWindow);
 
         /* Menu window */
@@ -206,8 +200,9 @@ public class GameScreen extends DefaultScreen
     @Override
     public void resize(int width, int height)
     {
-        gameViewport.setScreenBounds(0,0, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        gameViewport.update(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         uiStage.getViewport().update(width, height, true);
+        chatLogger.add("Graphics: " + Gdx.graphics.getWidth() + " x " + Gdx.graphics.getHeight());
     }
 
     @Override
