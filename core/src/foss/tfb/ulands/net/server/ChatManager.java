@@ -3,6 +3,7 @@ package foss.tfb.ulands.net.server;
 import foss.tfb.ulands.net.GameConnection;
 import foss.tfb.ulands.net.Network.ChatMessage;
 import foss.tfb.ulands.net.server.listener.ChatManagerListener;
+import foss.tfb.ulands.net.validation.StringValidator;
 import foss.tfb.ulands.stage.Player;
 
 import java.util.ArrayList;
@@ -53,6 +54,11 @@ public class ChatManager extends Manager
                 "Player '" + player.getUsername() + "' disconnected.");
     }
 
+    public void sendPublicPlayerChatMessage(Player player, String message)
+    {
+        sendChatMessage(new GameServer.BroadcastToAll(), player.getUsername() + ": " + message);
+    }
+
     /* Listeners */
     public boolean addListener(ChatManagerListener listener)
     {
@@ -64,4 +70,29 @@ public class ChatManager extends Manager
         return this.listeners.remove(listener);
     }
 
+    /* Network */
+
+    @Override
+    public void act(GameConnection connection, Object object)
+    {
+        Player player = connection.getAssociatedPlayer();
+        if(player.isAuthorized())
+        {
+
+            if(object instanceof ChatMessage)
+            {
+                ChatMessage message = (ChatMessage) object;
+                String text = message.text;
+
+                StringValidator validator = new StringValidator(text);
+                if(!validator.validateText())
+                    return;
+
+                sendPublicPlayerChatMessage(player, message.text);
+                return;
+            }
+
+
+        }
+    }
 }

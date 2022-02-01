@@ -128,7 +128,7 @@ public class ConnectingToServerScreen extends MenuScreen
         statusLog("Connected, authorizing...");
 
         // TODO: client send username & password
-        client.authorize("PlayerName", "no_password");
+        client.authorize("Player #" + (int)(Math.random() * 100), "no_password");
     }
 
     protected void disconnected(Connection connection)

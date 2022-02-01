@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.esotericsoftware.kryonet.Connection;
@@ -39,6 +40,7 @@ public class GameScreen extends DefaultScreen
     protected ConsoleWindow chatWindow;
     protected DefaultWindow menuWindow;
     protected ChatLogger chatLogger;
+    protected TextField messageField;
     //implements InputProcessor
 
     protected GameClient client;
@@ -102,8 +104,17 @@ public class GameScreen extends DefaultScreen
         /* Chat window */
 
         chatWindow = new ConsoleWindow("Chat", skin, false, false);
-        chatLogger = chatWindow.getChatLogger();
+        chatWindow.setClickListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y)
+            {
+                GameScreen.this.onMessageSent(event, x, y);
+            }
+        });
         uiStage.addActor(chatWindow);
+
+        chatLogger = chatWindow.getChatLogger();
+        messageField = chatWindow.getMessageField();
 
         /* Menu window */
 
@@ -170,6 +181,44 @@ public class GameScreen extends DefaultScreen
         uiStage.draw();
     }
 
+   @Override
+    public void resize(int width, int height)
+    {
+        gameViewport.update(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        uiStage.getViewport().update(width, height, true);
+        chatLogger.add("Graphics: " + Gdx.graphics.getWidth() + " x " + Gdx.graphics.getHeight());
+    }
+
+    @Override
+    public void pause()
+    {
+
+    }
+
+    @Override
+    public void resume()
+    {
+
+    }
+
+    @Override
+    public void dispose()
+    {
+        client.removeListener(eventsListener);
+        super.dispose();
+    }
+
+    /* UI */
+
+    protected boolean onMessageSent(InputEvent event, float x, float y)
+    {
+        client.getChatManager().send(messageField.getText());
+        messageField.setText("");
+        return true;
+    }
+
+    /* Network */
+
     public void connected(Connection c)
     {
 
@@ -196,31 +245,4 @@ public class GameScreen extends DefaultScreen
 
     }
 
-
-    @Override
-    public void resize(int width, int height)
-    {
-        gameViewport.update(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-        uiStage.getViewport().update(width, height, true);
-        chatLogger.add("Graphics: " + Gdx.graphics.getWidth() + " x " + Gdx.graphics.getHeight());
-    }
-
-    @Override
-    public void pause()
-    {
-
-    }
-
-    @Override
-    public void resume()
-    {
-
-    }
-
-    @Override
-    public void dispose()
-    {
-        client.removeListener(eventsListener);
-        super.dispose();
-    }
 }

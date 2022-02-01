@@ -1,9 +1,11 @@
 package foss.tfb.ulands.ui.window;
 
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import foss.tfb.ulands.ui.ChatLogger;
 
 public class ConsoleWindow extends DefaultWindow
@@ -30,6 +32,7 @@ public class ConsoleWindow extends DefaultWindow
     protected ImageTextButton sendButton;
     protected TextField messageField;
     protected Table table;
+    protected EventListener eventListener;
 
     protected void init()
     {
@@ -39,13 +42,19 @@ public class ConsoleWindow extends DefaultWindow
         sendButton.setSize(80, 40);
 
         messageField = new TextField("", skin);
-
+        messageField.setTextFieldListener((textField, key) -> {
+            EventListener el = getEventListener();
+            if ((key == '\r' || key == '\n') && el != null){
+                //sendButton.fire(new InputEvent());
+                // TODO: call sendButton onClick event
+            }
+        });
         chatLogger = new ChatLogger(skin);
 
         row().colspan(2);
         add(chatLogger).prefWidth(Float.MAX_VALUE).prefHeight(Float.MAX_VALUE);
         row();
-        add(messageField).prefWidth(Float.MAX_VALUE);
+        add(messageField).minWidth(300).prefWidth(Float.MAX_VALUE);
         add(sendButton).width(sendButton.getWidth()).height(sendButton.getHeight());
     }
 
@@ -67,5 +76,20 @@ public class ConsoleWindow extends DefaultWindow
     public Table getTable()
     {
         return table;
+    }
+
+    public EventListener getEventListener()
+    {
+        return eventListener;
+    }
+
+    public void setClickListener(ClickListener eventListener)
+    {
+        if(this.eventListener != null)
+            sendButton.removeListener(this.eventListener);
+
+        this.eventListener = eventListener;
+
+        sendButton.addListener(eventListener);
     }
 }

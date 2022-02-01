@@ -16,6 +16,8 @@ public class GameClient
     Client client;
     String name;
 
+    protected ChatManager chatManager;
+
     public GameClient()
     {
         client = new Client();
@@ -48,6 +50,8 @@ public class GameClient
         client.start(); //TODO: move start() to dedicated method
 
         Network.register(client);
+
+        chatManager = new ChatManager(this);
     }
 
     public void connect(String host, int port) throws IOException
@@ -110,4 +114,10 @@ public class GameClient
 
     }
 
+    /* Client managers */
+
+    public ChatManager getChatManager()
+    {
+        return chatManager;
+    }
 }

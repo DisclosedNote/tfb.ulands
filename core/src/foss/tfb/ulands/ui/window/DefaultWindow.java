@@ -133,8 +133,6 @@ public class DefaultWindow extends Window {
 
     protected void subMenuButton()
     {
-        if(!enlargeButtonEnabled) return;
-
         // TODO: make dedicated ActionsListBox class
         final SelectBox<String> subMenuButton = new SelectBox<String>(this.getSkin(), DefaultWindow.SUBMENU_BUTTON_STYLE){
             @Override

@@ -14,6 +14,7 @@ import foss.tfb.ulands.net.server.GameServer;
 import foss.tfb.ulands.ui.ChatLogger;
 import foss.tfb.ulands.ui.textfiled.Ipv4Field;
 import foss.tfb.ulands.ui.textfiled.PortField;
+import foss.tfb.ulands.ui.window.ConsoleWindow;
 import foss.tfb.ulands.ui.window.DefaultWindow;
 
 public class HostLocalGameScreen extends MenuScreen
@@ -25,7 +26,7 @@ public class HostLocalGameScreen extends MenuScreen
     }
 
     protected DefaultWindow window;
-    protected DefaultWindow logsWindow;
+    protected ConsoleWindow logsWindow;
 
     protected Ipv4Field ip;
     protected PortField port;
@@ -135,13 +136,12 @@ public class HostLocalGameScreen extends MenuScreen
 
         /* Logs */
 
-        logsWindow = new DefaultWindow("Logs", skin, false, false);
+        logsWindow = new ConsoleWindow("Console", skin, false, true);
         float width = uiStage.getWidth();
         logsWindow.setBounds(0, uiStage.getHeight(), width, 160);
 
-        chatLogger = new ChatLogger(skin);
+        chatLogger = logsWindow.getChatLogger();
 
-        logsWindow.add(chatLogger);
         uiStage.addActor(logsWindow);
     }
 

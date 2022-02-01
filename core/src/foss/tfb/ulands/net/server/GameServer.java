@@ -207,9 +207,9 @@ public class GameServer
     {
         // We know all connections for this server are actually ChatConnections.
         GameConnection connection = (GameConnection)c;
-        Player player = connection.getAssociatedPlayer();
 
         if (object instanceof Authorize) {
+            Player player = connection.getAssociatedPlayer();
             // Validate object (if sent from hacker)
             if (player.isAuthorized()) return;
 
@@ -230,6 +230,8 @@ public class GameServer
             // TODO: send player connect (send create Player instance)
             return;
         }
+
+        chatManager.act(connection, object);
 
         /*
         if (object instanceof ChatMessage) {
