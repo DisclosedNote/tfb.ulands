@@ -1,0 +1,25 @@
+<svg width="1500" height="500" version="1.1" viewBox="0 0 396.87 132.29" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <filter id="filter1739" color-interpolation-filters="sRGB">
+   <feGaussianBlur result="blur" stdDeviation="8.86328 2.87"/>
+  </filter>
+ </defs>
+ <g transform="translate(0,-169)">
+  <g transform="matrix(1.0269 0 0 1.0269 2.4937 9.2764)">
+   <g transform="translate(67.991 5.5016)">
+    <g transform="matrix(1.1326 0 0 1.1326 -29.17 -28.439)" fill="#fff" fill-rule="evenodd" filter="url(#filter1739)">
+     <circle cx="59.584" cy="216.58" r="43.31" style="paint-order:normal"/>
+     <circle cx="63.817" cy="212.34" r="43.31" style="paint-order:normal"/>
+     <ellipse transform="rotate(160)" cx="16.552" cy="-219.53" rx="65.939" ry="7.6929" fill-opacity=".63948" style="paint-order:normal"/>
+    </g>
+    <g transform="matrix(1.1326 0 0 1.1326 -29.171 -28.439)" fill-rule="evenodd">
+     <circle cx="59.584" cy="216.58" r="43.31" fill="#130051" style="paint-order:normal"/>
+     <circle cx="63.817" cy="212.34" r="43.31" fill="#21008c" style="paint-order:normal"/>
+     <ellipse transform="rotate(160)" cx="16.552" cy="-219.53" rx="65.939" ry="7.6929" fill="#fc0" fill-opacity=".63948" style="paint-order:normal"/>
+    </g>
+    <flowRoot transform="matrix(.68855 0 0 .68855 95.679 -51.402)" fill="#ffffff" letter-spacing="0px" stroke-width=".62637" word-spacing="0px" style="line-height:1.25" xml:space="preserve"><flowRegion font-family="ZWAdobeF" font-size="30.936px" stroke="#000000"><rect x="36.429" y="356.64" width="786.61" height="148.84" fill="#fff" stroke="#000" stroke-width=".62637"/></flowRegion><flowPara font-family="Verdana" font-size="29.463px" font-weight="bold" style="line-height:0">Ultimate Lands</flowPara><flowPara baseline-shift="super" font-family="Verdana" font-size="65%" font-style="italic" letter-spacing="0px" style="line-height:0">The Forced Behaviour</flowPara></flowRoot>
+    <flowRoot transform="matrix(.68855 0 0 .68855 -120.85 34.621)" fill="#000000" letter-spacing="0px" word-spacing="0px" style="line-height:1.25" xml:space="preserve"><flowRegion font-family="ZWAdobeF" font-size="30.936px"><rect x="36.429" y="356.64" width="389.29" height="70.714" fill="#000"/></flowRegion><flowPara font-family="Verdana" font-size="20.624px" font-style="italic" text-align="center" text-anchor="middle"/></flowRoot>
+   </g>
+  </g>
+ </g>
+</svg>

@@ -1,0 +1,14 @@
+<svg width="512" height="512" version="1.1" viewBox="0 0 135.47 135.47" xmlns="http://www.w3.org/2000/svg">
+ <g transform="matrix(.86297 0 0 .86297 16.36 -117.34)" fill-rule="evenodd">
+  <circle cx="59.584" cy="216.58" r="43.31" fill="#130051" style="paint-order:normal"/>
+  <circle cx="63.817" cy="212.34" r="43.31" fill="#21008c" style="paint-order:normal"/>
+  <ellipse transform="rotate(160)" cx="16.552" cy="-219.53" rx="65.939" ry="7.6929" fill="#fc0" fill-opacity=".63948" style="paint-order:normal"/>
+ </g>
+ <g transform="matrix(5.913 0 0 5.9131 -669.62 -601.58)" fill="#b32e12" shape-rendering="auto">
+  <path d="m113.8 102.29v6.961h1.1076v-5.8534h5.8536v-1.1076zm14.841 0v1.1076h5.8534v5.8534h1.1076v-6.961zm-14.841 14.841v6.961h6.9612v-1.1076h-5.8536v-5.8534zm20.695 0v5.8534h-5.8534v1.1076h6.961v-6.961z" color="#000000" color-rendering="auto" dominant-baseline="auto" image-rendering="auto" solid-color="#000000" stop-color="#000000" stroke="#800000" stroke-linecap="square" stroke-width="1.1074" style="font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;font-variation-settings:normal;inline-size:0;isolation:auto;mix-blend-mode:normal;shape-margin:0;shape-padding:0;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal"/>
+  <rect x="113.4" y="112.78" width="7.7531" height=".81739"/>
+  <rect x="128.25" y="112.78" width="7.7531" height=".81739"/>
+  <rect transform="rotate(90)" x="101.89" y="-125.11" width="7.7528" height=".81741"/>
+  <rect transform="rotate(90)" x="116.74" y="-125.11" width="7.7528" height=".81741"/>
+ </g>
+</svg>
