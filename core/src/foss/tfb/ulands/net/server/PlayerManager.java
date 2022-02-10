@@ -67,4 +67,10 @@ public class PlayerManager extends Manager
         sendPackage(player, status);
     }
 
+
+    @Override
+    public void think()
+    {
+
+    }
 }

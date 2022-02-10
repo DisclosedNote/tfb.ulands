@@ -12,4 +12,6 @@ abstract public class Manager
     }
 
     public void act(GameConnection connection, Object object) {}
+
+    public void think() {}
 }

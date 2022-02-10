@@ -38,6 +38,8 @@ public class ConsoleWindow extends DefaultWindow
     {
         Skin skin = getSkin();
 
+        setSize(650, 250);
+
         sendButton = new ImageTextButton("Send", skin);
         sendButton.setSize(80, 40);
 

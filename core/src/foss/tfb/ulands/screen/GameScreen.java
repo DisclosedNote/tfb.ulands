@@ -120,16 +120,16 @@ public class GameScreen extends DefaultScreen
 
         menuWindow = new DefaultWindow("Menu",
                 skin, false, false);
-        menuWindow.setBounds(100, 100, 500, 200);
+        menuWindow.setBounds(100, 100, 275, 495);
 
         Table table = new Table(skin);
 
         Label title = new Label("Title Screen", skin, UlandsTFBGame.DEFAULT_FONT_STYLE);
         title.setAlignment(Align.center);
 
-        ArrayList<MainMenuScreen.MainMenuAction> actions = new ArrayList<>();
+        ArrayList<MainMenuAction> actions = new ArrayList<>();
 
-        actions.add(new MainMenuScreen.MainMenuAction("Back to main menu", "Disconnect from server and open main menu"){
+        actions.add(new MainMenuAction("Back to main menu", "Disconnect from server and open main menu"){
             @Override
             public void doAction()
             {
@@ -140,7 +140,7 @@ public class GameScreen extends DefaultScreen
 
         table.row().colspan(3).expandX().fillX();
         table.add(title).fillX();
-        for(final MainMenuScreen.MainMenuAction action : actions)
+        for(final MainMenuAction action : actions)
         {
             ImageTextButton actionButton = new ImageTextButton(action.title, skin);
             actionButton.setWidth(160);
@@ -243,6 +243,30 @@ public class GameScreen extends DefaultScreen
     public void idle(Connection c)
     {
 
+    }
+
+    abstract static class MainMenuAction
+    {
+        protected String title;
+        protected String tooltip;
+
+        public MainMenuAction(String title, String tooltip)
+        {
+            this.title = title;
+            this.tooltip = tooltip;
+        }
+
+        abstract public void doAction();
+
+        public String getTitle()
+        {
+            return title;
+        }
+
+        public String getTooltip()
+        {
+            return tooltip;
+        }
     }
 
 }

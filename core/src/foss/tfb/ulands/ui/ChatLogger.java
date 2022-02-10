@@ -1,5 +1,6 @@
 package foss.tfb.ulands.ui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -20,6 +21,8 @@ public class ChatLogger extends ScrollPane
 
     protected Table contents;
     protected Skin skin;
+
+    protected boolean skrollAfterAdd = true;
 
     public ChatLogger(Skin skin)
     {
@@ -63,6 +66,14 @@ public class ChatLogger extends ScrollPane
 
         contents.row();
         contents.add(instance).expandX().fill().row();
+
+        scrollToBottom();
+    }
+
+    protected void scrollToBottom()
+    {
+        if(skrollAfterAdd && getScrollPercentY() * 100 > 90)
+            Gdx.app.postRunnable(() -> setScrollPercentY(1f));
     }
 
     public ArrayList<Table> getMessages()
@@ -96,5 +107,15 @@ public class ChatLogger extends ScrollPane
     public Table getContents()
     {
         return contents;
+    }
+
+    public boolean isSkrollAfterAdd()
+    {
+        return skrollAfterAdd;
+    }
+
+    public void setSkrollAfterAdd(boolean skrollAfterAdd)
+    {
+        this.skrollAfterAdd = skrollAfterAdd;
     }
 }

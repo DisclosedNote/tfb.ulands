@@ -95,4 +95,9 @@ public class ChatManager extends Manager
 
         }
     }
+
+    public void think()
+    {
+
+    }
 }

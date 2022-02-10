@@ -177,7 +177,9 @@ public class GameServer
     {
         while(true)
         {
-
+            playerManager.think();
+            chatManager.think();
+            mapManager.think();
         }
     }
 

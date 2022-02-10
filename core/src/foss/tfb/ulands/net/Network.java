@@ -2,6 +2,10 @@ package foss.tfb.ulands.net;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
+import foss.tfb.ulands.stage.Object;
+import foss.tfb.ulands.stage.Player;
+
+import java.util.ArrayList;
 
 public class Network {
     public static int DEFAULT_GAME_PORT = 19784;
@@ -13,6 +17,9 @@ public class Network {
         kryo.register(AuthorizeStatus.class);
         kryo.register(String[].class);
         kryo.register(ChatMessage.class);
+        kryo.register(Sync.class);
+
+        kryo.addDefaultSerializer(Player.class, new Serializer.PlayerSerializer());
     }
 
     static public class Package {
@@ -31,4 +38,9 @@ public class Network {
     static public class ChatMessage extends Package {
         public String text;
     }
+
+    static public class Sync extends Package {
+        public ArrayList<Object> objects;
+    }
+
 }
