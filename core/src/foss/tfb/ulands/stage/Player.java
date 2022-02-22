@@ -13,12 +13,6 @@ public class Player extends Character
         this.connection = connection;
     }
 
-    public Player()
-    {
-        connection = new GameConnection();
-        connection.setAssociatedPlayer(this);
-    }
-
     public String getUsername()
     {
         return username;

@@ -1,4 +1,4 @@
-package foss.tfb.ulands.net;
+ package foss.tfb.ulands.net;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
@@ -17,7 +17,7 @@ public class Serializer
         @Override
         public void write(Kryo kryo, Output output, Player object)
         {
-            // TODO
+
         }
 
         @Override

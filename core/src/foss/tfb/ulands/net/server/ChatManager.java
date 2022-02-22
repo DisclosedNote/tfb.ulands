@@ -1,7 +1,7 @@
 package foss.tfb.ulands.net.server;
 
 import foss.tfb.ulands.net.GameConnection;
-import foss.tfb.ulands.net.Network.ChatMessage;
+import foss.tfb.ulands.net.Network.ChatMessagePackage;
 import foss.tfb.ulands.net.server.listener.ChatManagerListener;
 import foss.tfb.ulands.net.validation.StringValidator;
 import foss.tfb.ulands.stage.Player;
@@ -19,9 +19,9 @@ public class ChatManager extends Manager
 
     // TODO: message listeners
 
-    protected ChatMessage formMessage(String chatMessage)
+    protected ChatMessagePackage formMessage(String chatMessage)
     {
-        ChatMessage message = new ChatMessage();
+        ChatMessagePackage message = new ChatMessagePackage();
         message.text = chatMessage;
         return message;
     }
@@ -37,26 +37,27 @@ public class ChatManager extends Manager
         }
 
         broadcast.data = formMessage(chatMessage);
-        this.server.send(broadcast);
+        broadcast.send();
     }
 
     public void sendConnected(GameConnection connection)
     {
         Player player = connection.getAssociatedPlayer();
-        sendChatMessage(new GameServer.BroadcastToAll(),
+        sendChatMessage(server.prepareBroadcastToAll(),
                 "Player '" + player.getUsername() + "' connected.");
     }
 
     public void sendDisconnected(GameConnection connection)
     {
         Player player = connection.getAssociatedPlayer();
-        sendChatMessage(new GameServer.BroadcastToAll(),
+        sendChatMessage(server.prepareBroadcastToAll(),
                 "Player '" + player.getUsername() + "' disconnected.");
     }
 
     public void sendPublicPlayerChatMessage(Player player, String message)
     {
-        sendChatMessage(new GameServer.BroadcastToAll(), player.getUsername() + ": " + message);
+        sendChatMessage(server.prepareBroadcastToAll(),
+                player.getUsername() + ": " + message);
     }
 
     /* Listeners */
@@ -79,14 +80,25 @@ public class ChatManager extends Manager
         if(player.isAuthorized())
         {
 
-            if(object instanceof ChatMessage)
+            if(object instanceof ChatMessagePackage)
             {
-                ChatMessage message = (ChatMessage) object;
+                ChatMessagePackage message = (ChatMessagePackage) object;
                 String text = message.text;
 
                 StringValidator validator = new StringValidator(text);
                 if(!validator.validateText())
                     return;
+
+                /*
+                // Broadcast example:
+                GameServer.Broadcast broadcast = server.prepareBroadcastToAll();
+                broadcast.data = new Network.SyncPackage(
+                        new Network.Syncable<>(1, "width", 3),
+                        new Network.Syncable<>(1, "length", "asdaskdoqkwodqkwo"),
+                        new Network.Syncable<>(1, "height", new int[]{2,5,1,6,1,2,6})
+                );
+                broadcast.send();
+                */
 
                 sendPublicPlayerChatMessage(player, message.text);
                 return;

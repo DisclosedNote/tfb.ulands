@@ -86,7 +86,7 @@ public class GameClient
 
     public int authorize(String name, String password)
     {
-        Network.Authorize authorizeData = new Network.Authorize();
+        Network.AuthorizePackage authorizeData = new Network.AuthorizePackage();
         authorizeData.name = name;
         authorizeData.password = password;
         return client.sendTCP(authorizeData);
@@ -106,6 +106,25 @@ public class GameClient
 
     public void received(Connection c, Object o)
     {
+
+        // just for testing purposes
+        if(o instanceof Network.SyncPackage){
+            Network.SyncPackage s = (Network.SyncPackage) o;
+            if(s.objects == null) return;
+            Network.Syncable<?>[] objects = s.objects;
+
+            for(Network.Syncable<?> syncable : objects) {
+
+                if(syncable.value instanceof int[])
+                {
+                    System.out.println("got some specific data: " + syncable.id + " " + syncable.name + " " + ((int[])syncable.value)[0]);
+                    continue;
+                }
+
+                System.out.println("got some data: " + syncable.id + " " + syncable.name + " " + syncable.value);
+            }
+            return;
+        }
 
     }
 

@@ -11,7 +11,7 @@ public class ChatManager extends Manager
 
     public int send(String message)
     {
-        Network.ChatMessage chatMessage = new Network.ChatMessage();
+        Network.ChatMessagePackage chatMessage = new Network.ChatMessagePackage();
         chatMessage.text = message;
         return client.send(chatMessage);
     }

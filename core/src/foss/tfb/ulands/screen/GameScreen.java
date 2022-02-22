@@ -231,9 +231,9 @@ public class GameScreen extends DefaultScreen
 
     public void received(Connection c, Object o)
     {
-        if(o instanceof Network.ChatMessage)
+        if(o instanceof Network.ChatMessagePackage)
         {
-            Network.ChatMessage message = (Network.ChatMessage)o;
+            Network.ChatMessagePackage message = (Network.ChatMessagePackage)o;
             chatLogger.add(message.text);
             System.out.println(message.text);
             return;

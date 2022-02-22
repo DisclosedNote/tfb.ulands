@@ -9,14 +9,14 @@ import java.util.ArrayList;
 public class PlayerManager extends Manager
 {
 
-    protected ArrayList<Player> players = new ArrayList<>();
+    private ArrayList<Player> players = new ArrayList<>();
 
     public PlayerManager(GameServer server)
     {
         super(server);
     }
 
-    public Player initializePlayer(GameConnection connection)
+    synchronized public Player initializePlayer(GameConnection connection)
     {
         Player player = new Player(connection);
 
@@ -25,12 +25,16 @@ public class PlayerManager extends Manager
         return player;
     }
 
-    public void removePlayer(Player player)
+    synchronized public void removePlayer(Player player)
     {
         // TODO: call Player dispose()
         players.remove(player);
     }
 
+    synchronized public ArrayList<Player> getPlayers()
+    {
+        return players;
+    }
 
     /* Network */
 
@@ -48,10 +52,10 @@ public class PlayerManager extends Manager
         {
             GameConnection gameConnection = player.getConnection();
 
-            GameServer.BroadcastTo broadcast = new GameServer.BroadcastTo(gameConnection.getID());
+            GameServer.BroadcastTo broadcast = server.prepareBroadcastTo();
             broadcast.data = data;
-
-            server.send(broadcast);
+            broadcast.sendTo = gameConnection.getID();
+            broadcast.send();
         }
     }
 
@@ -62,7 +66,7 @@ public class PlayerManager extends Manager
     public void sendAuthorizedStatus(Player player)
     {
         boolean isAuthorized = player.isAuthorized();
-        Network.AuthorizeStatus status = new Network.AuthorizeStatus();
+        Network.AuthorizeStatusPackage status = new Network.AuthorizeStatusPackage();
         status.authorized = isAuthorized;
         sendPackage(player, status);
     }
@@ -73,4 +77,5 @@ public class PlayerManager extends Manager
     {
 
     }
+
 }

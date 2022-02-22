@@ -3,7 +3,7 @@ package foss.tfb.ulands.stage;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-public class Object
+public class BaseObject
 {
     /**
      * Client-side only
@@ -14,7 +14,8 @@ public class Object
     /**
      * Shared-side
      */
-    protected int x,y,width,height,rotation;
+    protected Long id;
+    protected Integer x, y, width, height, rotation;
 
 
     /**

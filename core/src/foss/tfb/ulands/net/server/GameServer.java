@@ -5,7 +5,7 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import foss.tfb.ulands.net.GameConnection;
 import foss.tfb.ulands.net.Network;
-import foss.tfb.ulands.net.Network.Authorize;
+import foss.tfb.ulands.net.Network.AuthorizePackage;
 import foss.tfb.ulands.stage.Player;
 
 import java.io.IOException;
@@ -19,6 +19,7 @@ public class GameServer
     protected ChatManager chatManager;
     protected MapManager mapManager;
     protected PlayerManager playerManager;
+    protected SyncManager syncManager;
 
     protected Server server;
     protected boolean isStarted = false;
@@ -75,6 +76,7 @@ public class GameServer
         chatManager = new ChatManager(this);
         mapManager = new MapManager(this);
         playerManager = new PlayerManager(this);
+        syncManager = new SyncManager(this);
 
         /* Logic thread */
         logicThread = new Thread(GameServer.this::think);
@@ -210,13 +212,16 @@ public class GameServer
         // We know all connections for this server are actually ChatConnections.
         GameConnection connection = (GameConnection)c;
 
-        if (object instanceof Authorize) {
+
+        // TODO: move to appropriate manager
+        if (object instanceof AuthorizePackage) {
             Player player = connection.getAssociatedPlayer();
+
             // Validate object (if sent from hacker)
             if (player.isAuthorized()) return;
 
             // Ignore the object if the name is invalid.
-            String name = ((Authorize) object).name;
+            String name = ((AuthorizePackage) object).name;
             if (name == null) return;
             name = name.trim();
             if (name.length() == 0) return;
@@ -225,7 +230,6 @@ public class GameServer
             player.setUsername(name);
             player.setAuthorized(true);
             chatManager.sendConnected(connection);
-//            chatManager.sendChatMessage(new BroadcastTo(connection.getID()), "Hello! Nice to meet you!");
 
             playerManager.sendAuthorizedStatus(player);
 
@@ -235,22 +239,6 @@ public class GameServer
 
         chatManager.act(connection, object);
 
-        /*
-        if (object instanceof ChatMessage) {
-            // Ignore the object if a client tries to chat before registering a name.
-            if (connection.name == null) return;
-            ChatMessage chatMessage = (ChatMessage)object;
-            // Ignore the object if the chat message is invalid.
-            String message = chatMessage.text;
-            if (message == null) return;
-            message = message.trim();
-            if (message.length() == 0) return;
-            // Prepend the connection's name and send to everyone.
-            chatMessage.text = connection.name + ": " + message;
-            server.sendToAllTCP(chatMessage);
-            return;
-        }
-         */
     }
 
     public void idle(Connection c)
@@ -258,57 +246,90 @@ public class GameServer
 
     }
 
-    /* Broadcast */
+    /**
+     *  <h2>Broadcasts</h2>
+     *  Low-level connections communication.
+     *  Several classes describes data to be sent and direction (to all/specific connections).
+     */
 
-    static public class Broadcast {
+    public abstract class Broadcast {
         public Network.Package data = new Network.Package();
-    }
+        protected GameServer gameServer;
 
-    static public class BroadcastToAll extends Broadcast {
-
-    }
-
-    static public class BroadcastTo extends Broadcast {
-        public int sendTo;
-
-        public BroadcastTo(int sendTo)
+        public Broadcast(GameServer gameServer)
         {
-            this.sendTo = sendTo;
+            this.gameServer = gameServer;
+        }
+
+        /**
+         * Raw TCP-connection send method.
+         * Use if low-level access is required (ex. send data to specific connection ID, not a player).
+         * See {@link PlayerManager#sendPackage} for sending {@link Network.Package} to specific players.
+         */
+        abstract public void send();
+    }
+
+    public class BroadcastToAll extends Broadcast {
+
+        public BroadcastToAll(GameServer gameServer)
+        {
+            super(gameServer);
+        }
+
+        @Override
+        public void send()
+        {
+            GameServer.this.server.sendToAllTCP(this.data);
         }
     }
 
-    static public class BroadcastToAllExcept extends Broadcast {
+    public class BroadcastTo extends Broadcast {
+        public int sendTo;
+
+        public BroadcastTo(GameServer gameServer)
+        {
+            super(gameServer);
+        }
+
+        @Override
+        public void send()
+        {
+            GameServer.this.server.sendToTCP(this.sendTo, this.data);
+        }
+    }
+
+    public class BroadcastToAllExcept extends Broadcast {
         public int sendExcept;
 
-        public BroadcastToAllExcept(int sendExcept)
+        public BroadcastToAllExcept(GameServer gameServer)
         {
-            this.sendExcept = sendExcept;
+            super(gameServer);
+        }
+
+        @Override
+        public void send()
+        {
+            GameServer.this.server.sendToAllExceptTCP(this.sendExcept, this.data);
         }
     }
 
     /**
-     * Raw TCP-connection send method.
-     * Use if low-level access is required (ex. send data to specific connection ID, not a player).
-     * See {@link PlayerManager#sendPackage} for sending {@link Network.Package} to specific players.
+     * <h3>Broadcast factories</h3>
+     * Used for generating outgoing broadcast packages outside GameServer.
      */
-    public void send(Broadcast type)
+
+    public GameServer.BroadcastToAll prepareBroadcastToAll()
     {
-        if(type instanceof BroadcastTo)
-        {
-            this.server.sendToTCP(((BroadcastTo) type).sendTo, type.data);
-            return;
-        }
+        return new BroadcastToAll(this);
+    }
 
-        if(type instanceof BroadcastToAllExcept)
-        {
-            this.server.sendToAllExceptTCP(((BroadcastToAllExcept) type).sendExcept, type.data);
-            return;
-        }
+    public GameServer.BroadcastTo prepareBroadcastTo()
+    {
+        return new BroadcastTo(this);
+    }
 
-        if(type instanceof BroadcastToAll)
-        {
-            this.server.sendToAllTCP(type.data);
-            return;
-        }
+    public GameServer.BroadcastToAllExcept prepareBroadcastToAllExcept()
+    {
+        return new BroadcastToAllExcept(this);
     }
 }

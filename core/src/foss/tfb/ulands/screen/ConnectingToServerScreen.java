@@ -138,8 +138,8 @@ public class ConnectingToServerScreen extends MenuScreen
 
     protected void received(Connection connection, Object o)
     {
-        if(o instanceof Network.AuthorizeStatus){
-            Network.AuthorizeStatus authorizeStatus = (Network.AuthorizeStatus)o;
+        if(o instanceof Network.AuthorizeStatusPackage){
+            Network.AuthorizeStatusPackage authorizeStatus = (Network.AuthorizeStatusPackage)o;
 
             if(authorizeStatus.authorized)
             {
