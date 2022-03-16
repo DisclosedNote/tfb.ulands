@@ -1,15 +1,18 @@
 package foss.tfb.ulands.net.validation;
 
-public class StringValidator extends Validator
+public class StringValidator extends Validator<String>
 {
     final public int USERNAME_LENGTH = 256;
     final public int MESSAGE_LENGTH = 2048;
 
-    protected String contents;
-
     public StringValidator(String contents)
     {
-        this.contents = contents;
+        super(contents);
+    }
+
+    public StringValidator()
+    {
+        contents = "";
     }
 
     public boolean validateUsername()

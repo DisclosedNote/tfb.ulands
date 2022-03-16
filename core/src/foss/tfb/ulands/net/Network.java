@@ -2,7 +2,7 @@ package foss.tfb.ulands.net;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
-import foss.tfb.ulands.stage.Player;
+import foss.tfb.ulands.stage.BaseObject;
 
 public class Network {
     public static int DEFAULT_GAME_PORT = 19784;
@@ -10,18 +10,27 @@ public class Network {
 
     static public void register (EndPoint endPoint) {
         Kryo kryo = endPoint.getKryo();
+
+        // Custom game classes serializers section
+        kryo.addDefaultSerializer(BaseObject.class, CustomSerializers.BaseObjectSerializer.class);
+
         kryo.register(AuthorizePackage.class);
         kryo.register(AuthorizeStatusPackage.class);
         kryo.register(ChatMessagePackage.class);
 
-        kryo.register(Syncable.class);
-        kryo.register(Syncable[].class);
-        kryo.register(SyncPackage.class);
+        kryo.register(SyncablePart.class);
+        kryo.register(SyncablePart[].class);
+        kryo.register(SyncPartsPackage.class);
+        kryo.register(BaseObject.class);
+        kryo.register(BaseObject[].class);
+        kryo.register(FullSyncPackage.class);
 
         kryo.register(int[].class);
 
-        kryo.addDefaultSerializer(Player.class, Serializer.PlayerSerializer.class);
+
     }
+
+    /* Package classes */
 
     static public class Package {
 
@@ -40,36 +49,47 @@ public class Network {
         public String text;
     }
 
-    static public class SyncPackage extends Package {
-        public Network.Syncable<?>[] objects;
+    static public class SyncPartsPackage extends Package {
+        public SyncablePart<?>[] objects;
 
-        public SyncPackage(Network.Syncable<?>... syncables)
+        public SyncPartsPackage(SyncablePart<?>... syncableParts)
         {
-            objects = new Network.Syncable<?>[syncables.length];
-
-            for(int i = 0; i < syncables.length; i++){
-                objects[i] = syncables[i];
-            }
+            objects = new SyncablePart<?>[syncableParts.length];
+            System.arraycopy(syncableParts, 0, objects, 0, syncableParts.length);
         }
 
-        public SyncPackage()
+        public SyncPartsPackage()
         {
         }
     }
 
-    static public class Syncable<T> {
+    static public class SyncablePart<T> {
         public long id;
         public String name;
         public T value;
 
-        public Syncable(long id, String name, T value)
+        public SyncablePart(long id, String name, T value)
         {
             this.id = id;
             this.name = name;
             this.value = value;
         }
 
-        public Syncable()
+        public SyncablePart()
+        {
+        }
+    }
+
+    static public class FullSyncPackage extends Package {
+        public BaseObject[] objects;
+
+        public FullSyncPackage(BaseObject... objects)
+        {
+            this.objects = new BaseObject[objects.length];
+            System.arraycopy(objects, 0, this.objects, 0, objects.length);
+        }
+
+        public FullSyncPackage()
         {
         }
     }

@@ -4,6 +4,7 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import foss.tfb.ulands.net.Network;
+import foss.tfb.ulands.stage.BaseObject;
 
 import java.io.IOException;
 
@@ -108,20 +109,48 @@ public class GameClient
     {
 
         // just for testing purposes
-        if(o instanceof Network.SyncPackage){
-            Network.SyncPackage s = (Network.SyncPackage) o;
+        if(o instanceof Network.SyncPartsPackage){
+            Network.SyncPartsPackage s = (Network.SyncPartsPackage) o;
             if(s.objects == null) return;
-            Network.Syncable<?>[] objects = s.objects;
+            Network.SyncablePart<?>[] objects = s.objects;
 
-            for(Network.Syncable<?> syncable : objects) {
+            for(Network.SyncablePart<?> syncablePart : objects) {
 
-                if(syncable.value instanceof int[])
+                if(syncablePart.value instanceof int[])
                 {
-                    System.out.println("got some specific data: " + syncable.id + " " + syncable.name + " " + ((int[])syncable.value)[0]);
+                    System.out.println("got some specific data: " + syncablePart.id + " " + syncablePart.name + " " + ((int[]) syncablePart.value)[0]);
                     continue;
                 }
 
-                System.out.println("got some data: " + syncable.id + " " + syncable.name + " " + syncable.value);
+                System.out.println("got some data: " + syncablePart.id + " " + syncablePart.name + " " + syncablePart.value);
+            }
+            return;
+        }
+
+        // just for testing purposes
+        if(o instanceof Network.FullSyncPackage){
+            Network.FullSyncPackage s = (Network.FullSyncPackage) o;
+            if(s.objects == null) return;
+            BaseObject[] objects = s.objects;
+
+            System.out.println(objects.length);
+
+            for(BaseObject asd : objects) {
+
+                String sb = "got object " +
+                        asd.id +
+                        " " +
+                        asd.x +
+                        " " +
+                        asd.y +
+                        " " +
+                        asd.width +
+                        " " +
+                        asd.height +
+                        " " +
+                        asd.rotation;
+
+                System.out.println(sb);
             }
             return;
         }

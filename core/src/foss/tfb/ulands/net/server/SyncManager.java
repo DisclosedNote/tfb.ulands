@@ -16,9 +16,9 @@ public class SyncManager extends Manager
     /**
      * Sync independent data fields.
      * @param players Target players
-     * @param syncPackage {@link Network.SyncPackage}s to be sent
+     * @param syncPartsPackage {@link Network.SyncPartsPackage}s to be sent
      */
-    public void syncTo(ArrayList<Player> players, Network.SyncPackage syncPackage)
+    public void syncTo(ArrayList<Player> players, Network.SyncPartsPackage syncPartsPackage)
     {
         for(Player player : players){
             GameConnection c = player.getConnection();
@@ -26,23 +26,21 @@ public class SyncManager extends Manager
 
             GameServer.BroadcastTo bc = server.prepareBroadcastTo();
             bc.sendTo = c.getID();
-            bc.data = syncPackage;
+            bc.data = syncPartsPackage;
             bc.send();
         }
     }
 
-    public void syncTo(Player player, Network.SyncPackage syncPackage)
+    public void syncTo(Player player, Network.SyncPartsPackage syncPartsPackage)
     {
         ArrayList<Player> a = new ArrayList<>();
         a.add(player);
-        syncTo(a, syncPackage);
+        syncTo(a, syncPartsPackage);
     }
 
-    public void syncToAll(Network.SyncPackage syncPackage)
+    public void syncToAll(Network.SyncPartsPackage syncPartsPackage)
     {
-        syncTo(server.playerManager.getPlayers(), syncPackage);
+        syncTo(server.playerManager.getPlayers(), syncPartsPackage);
     }
-
-
 
 }

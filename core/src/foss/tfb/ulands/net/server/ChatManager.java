@@ -100,6 +100,32 @@ public class ChatManager extends Manager
                 broadcast.send();
                 */
 
+                /*
+                GameServer.Broadcast broadcast = server.prepareBroadcastToAll();
+
+                BaseObject o1 = new BaseObject();
+                o1.x = 401.55;
+                o1.y = 1053.21;
+                o1.id = 5918899L;
+                o1.rotation = 291;
+                o1.width = 875;
+                o1.height = 532;
+
+                BaseObject o2 = new BaseObject();
+                o2.x = 958.53;
+                o2.y = 9907.344;
+                o2.id = 812455L;
+                o2.rotation = 109;
+                o2.width = 300;
+                o2.height = 500;
+
+                broadcast.data = new Network.FullSyncPackage(
+                    o1,
+                    o2
+                );
+                broadcast.send();
+                */
+
                 sendPublicPlayerChatMessage(player, message.text);
                 return;
             }
