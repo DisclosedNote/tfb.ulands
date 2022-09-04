@@ -5,7 +5,6 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import foss.tfb.ulands.net.GameConnection;
 import foss.tfb.ulands.net.Network;
-import foss.tfb.ulands.net.Network.AuthorizePackage;
 import foss.tfb.ulands.stage.Player;
 
 import java.io.IOException;
@@ -122,8 +121,8 @@ public class GameServer
     public void stop()
     {
         if(!isStarted) return;
+        logicThread.interrupt();
         // if(logicThread.isAlive())
-            logicThread.interrupt();
         server.stop();
     }
 
@@ -213,30 +212,7 @@ public class GameServer
         GameConnection connection = (GameConnection)c;
 
 
-        // TODO: move to appropriate manager
-        if (object instanceof AuthorizePackage) {
-            Player player = connection.getAssociatedPlayer();
-
-            // Validate object (if sent from hacker)
-            if (player.isAuthorized()) return;
-
-            // Ignore the object if the name is invalid.
-            String name = ((AuthorizePackage) object).name;
-            if (name == null) return;
-            name = name.trim();
-            if (name.length() == 0) return;
-
-            // Store the name on the connection.
-            player.setUsername(name);
-            player.setAuthorized(true);
-            chatManager.sendConnected(connection);
-
-            playerManager.sendAuthorizedStatus(player);
-
-            // TODO: send player connect (send create Player instance)
-            return;
-        }
-
+        playerManager.act(connection, object);
         chatManager.act(connection, object);
 
     }

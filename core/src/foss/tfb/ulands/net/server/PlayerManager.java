@@ -78,4 +78,33 @@ public class PlayerManager extends Manager
 
     }
 
+    @Override
+    public void act(GameConnection connection, Object object)
+    {
+        ChatManager chatManager = server.chatManager;
+        PlayerManager playerManager = server.playerManager;
+        
+        if (object instanceof Network.AuthorizePackage) {
+            Player player = connection.getAssociatedPlayer();
+
+            // Validate object (if sent from hacker)
+            if (player.isAuthorized()) return;
+
+            // Ignore the object if the name is invalid.
+            String name = ((Network.AuthorizePackage) object).name;
+            if (name == null) return;
+            name = name.trim();
+            if (name.length() == 0) return;
+
+            // Store the name on the connection.
+            player.setUsername(name);
+            player.setAuthorized(true);
+            chatManager.sendConnected(connection);
+
+            playerManager.sendAuthorizedStatus(player);
+
+            // TODO: send player connect (send create Player instance)
+            return;
+        }
+    }
 }
