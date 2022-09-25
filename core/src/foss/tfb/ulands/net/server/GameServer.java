@@ -176,7 +176,7 @@ public class GameServer
     /* Logic thread */
     protected void think()
     {
-        while(true)
+        while(isStarted)
         {
             playerManager.think();
             chatManager.think();

@@ -56,8 +56,10 @@ public class ConsoleWindow extends DefaultWindow
         row().colspan(2);
         add(chatLogger).prefWidth(Float.MAX_VALUE).prefHeight(Float.MAX_VALUE);
         row();
-        add(messageField).minWidth(300).prefWidth(Float.MAX_VALUE);
+        add(messageField).prefWidth(Float.MAX_VALUE);
         add(sendButton).width(sendButton.getWidth()).height(sendButton.getHeight());
+
+        setMinWidth(300);
     }
 
     public ChatLogger getChatLogger()

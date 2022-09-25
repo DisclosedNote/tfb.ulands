@@ -34,6 +34,13 @@ public class DefaultWindow extends Window {
 
     protected boolean showSize = false;
 
+//    private Actor sizeManager = new Actor();
+
+    private float minWidth = 300;
+    private float minHeight = 200;
+    private float maxHeight = 0;
+    private float maxWidth = 0;
+
     public DefaultWindow(String title, Skin skin, boolean closeButtonEnabled, boolean enlargeButtonEnabled) {
         super(title, skin);
         init(closeButtonEnabled, enlargeButtonEnabled);
@@ -247,4 +254,61 @@ public class DefaultWindow extends Window {
                 getY() + sizeFont.getLineHeight() + sizeInfoOffset
             );
     }
+
+    /* Size limits */
+
+    @Override
+    public float getMinWidth() {
+        if(minWidth > 0) return minWidth;
+        return super.getMinWidth();
+    }
+
+    @Override
+    public float getMinHeight() {
+        if(minHeight > 0) return minHeight;
+        return super.getMinHeight();
+    }
+
+    @Override
+    // Unused when resizing :(
+    // TODO: use getMaxWidth() when resizing
+    public float getMaxWidth() {
+        if(maxWidth > 0) return maxWidth;
+        return super.getMaxWidth();
+    }
+
+    @Override
+    // Unused when resizing :(
+    // TODO: use getMaxHeight() when resizing
+    public float getMaxHeight() {
+        if(maxHeight > 0) return maxHeight;
+        return super.getMaxHeight();
+    }
+
+    public void setMinWidth(float minWidth){
+        this.minWidth = minWidth;
+    }
+
+    public void setMinHeight(float minHeight){
+        this.minHeight = minHeight;
+    }
+
+    public void setMinSize(float minWidth, float minHeight){
+        setMinWidth(minWidth);
+        setMinHeight(minHeight);
+    }
+
+    public void setMaxHeight(float maxHeight) {
+        this.maxHeight = maxHeight;
+    }
+
+    public void setMaxWidth(float maxWidth) {
+        this.maxWidth = maxWidth;
+    }
+
+    public void setMaxSize(float maxWidth, float maxHeight){
+        setMaxHeight(maxHeight);
+        setMaxWidth(maxWidth);
+    }
+
 }

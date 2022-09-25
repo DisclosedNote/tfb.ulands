@@ -1,6 +1,5 @@
 package foss.tfb.ulands.screen;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
@@ -60,7 +59,7 @@ public class HostLocalGameScreen extends MenuScreen
             @Override
             public void received(Connection connection, Object o)
             {
-                chatLogger.add("Data received from " + connection.getRemoteAddressTCP().toString());
+//                chatLogger.add("Data received from " + connection.getRemoteAddressTCP().toString());
             }
 
             @Override
@@ -73,10 +72,9 @@ public class HostLocalGameScreen extends MenuScreen
 
         Skin skin = UlandsTFBGame.getSkin();
         window = new DefaultWindow("Host settings", skin, false, false);
-
-
-        window.setWidth((float) (Gdx.graphics.getWidth() / 1.5));
-        window.setHeight((float) (Gdx.graphics.getHeight() / 1.5));
+        window.setResizable(false);
+//        window.setWidth((float) (Gdx.graphics.getWidth() / 1.5));
+//        window.setHeight((float) (Gdx.graphics.getHeight() / 1.5));
 
         Table table = new Table(skin);
 
@@ -109,7 +107,6 @@ public class HostLocalGameScreen extends MenuScreen
         });
 
         ip = new Ipv4Field("127.0.0.1", skin);
-
         port = new PortField("19784", skin);
 
 
@@ -135,13 +132,17 @@ public class HostLocalGameScreen extends MenuScreen
 
 
         /* Logs */
-
-        logsWindow = new ConsoleWindow("Console", skin, false, true);
-        float width = uiStage.getWidth();
-        logsWindow.setBounds(0, uiStage.getHeight(), width, 160);
+        logsWindow = new ConsoleWindow("Console", skin, false, true){
+            @Override
+            protected void sizeChanged() {
+                super.sizeChanged();
+                float uiHeight = uiStage.getHeight();
+                float uiWidth = uiStage.getWidth();
+                window.setBounds(this.getWidth(), uiHeight, uiWidth - this.getWidth(), uiHeight);
+            }
+        };
 
         chatLogger = logsWindow.getChatLogger();
-
         uiStage.addActor(logsWindow);
     }
 
@@ -183,5 +184,17 @@ public class HostLocalGameScreen extends MenuScreen
             to = "To all except c#" + ((GameServer.BroadcastToAllExcept)broadcast).sendExcept;
 
         chatLogger.add(to + ": " + chatMessage);
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        super.resize(width, height);
+
+        float uiHeight = uiStage.getHeight();
+        float uiWidth = uiStage.getWidth();
+        float defaultConsoleWindowWidth = 160;
+
+        logsWindow.setBounds(logsWindow.getX(), uiHeight, Math.min(logsWindow.getWidth(), uiWidth - defaultConsoleWindowWidth), uiHeight);
+        // logsWindow will also trigger window size on sizeChanged()
     }
 }

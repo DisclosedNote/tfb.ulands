@@ -4,7 +4,6 @@ import foss.tfb.ulands.net.Network;
 import foss.tfb.ulands.stage.BaseObject;
 import foss.tfb.ulands.stage.Player;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SyncManager extends Manager
@@ -18,44 +17,34 @@ public class SyncManager extends Manager
 
     public class SyncIntention {
 
-        protected ArrayList<BaseObject> objectsToSync = new ArrayList<>();
-        protected ArrayList<String> fieldsToSync = new ArrayList<>();
+        protected BaseObject[] objectsToSync;
+        protected String[] fieldsToSync;
         protected SyncCondition condition;
 
         public SyncIntention(BaseObject object, String ...fields)
         {
-            objectsToSync.add(object);
-            fieldsToSync.addAll(Arrays.asList(fields));
+            objectsToSync = new BaseObject[]{ object };
+            fieldsToSync = fields;
         }
 
         public SyncIntention(String field, BaseObject ...objects)
         {
-            fieldsToSync.add(field);
-            objectsToSync.addAll(Arrays.asList(objects));
+            fieldsToSync = new String[]{ field };
+            objectsToSync = objects;
         }
 
-        public SyncIntention()
+        public SyncIntention(BaseObject[] objectsToSync, String[] fieldsToSync)
         {
+            this.objectsToSync = Arrays.copyOf(objectsToSync, objectsToSync.length);
+            this.fieldsToSync = Arrays.copyOf(fieldsToSync, fieldsToSync.length);
         }
 
-        public ArrayList<BaseObject> getObjectsToSync()
-        {
+        public BaseObject[] getObjectsToSync() {
             return objectsToSync;
         }
 
-        public void addObjectToSync(BaseObject objectToSync)
-        {
-            this.objectsToSync.add(objectToSync);
-        }
-
-        public ArrayList<String> getFieldsToSync()
-        {
+        public String[] getFieldsToSync() {
             return fieldsToSync;
-        }
-
-        public void addFieldToSync(String fieldToSync)
-        {
-            this.fieldsToSync.add(fieldToSync);
         }
 
         public SyncCondition getCondition()
@@ -74,14 +63,14 @@ public class SyncManager extends Manager
                 for(BaseObject object : objectsToSync)
                     if(condition.shouldSyncTo(object, player))
                     {
-                        Network.SyncablePart<?>[] parts = new Network.SyncablePart<?>[fieldsToSync.size()];
+                        Network.SyncablePart<?>[] parts = new Network.SyncablePart<?>[fieldsToSync.length];
 
                         int i = 0;
                         for(String field : fieldsToSync){
                             try {
                                 parts[i] = new Network.SyncablePart<>(object.id, field, object.getClass().getField(field));
                             } catch (NoSuchFieldException e) {
-                                System.out.println("Sync error.");
+                                System.out.println("[!!! Sync error !!!]");
                                 e.printStackTrace();
                             }
                             i++;
@@ -95,7 +84,7 @@ public class SyncManager extends Manager
 
     }
 
-    /* SyncConditions */
+    /* Sync conditions */
 
     public abstract class SyncCondition {
         abstract public boolean shouldSyncTo(BaseObject syncing, Player current);
