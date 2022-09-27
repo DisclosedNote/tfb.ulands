@@ -9,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Pools;
 import foss.tfb.ulands.ui.ChatLogger;
 
+import java.util.ArrayList;
+
 public class ConsoleWindow extends DefaultWindow
 {
     public ConsoleWindow(String title, Skin skin, boolean closeButtonEnabled, boolean enlargeButtonEnabled)
@@ -60,6 +62,22 @@ public class ConsoleWindow extends DefaultWindow
         add(sendButton).width(sendButton.getWidth()).height(sendButton.getHeight());
 
         setMinWidth(300);
+    }
+
+    @Override
+    protected ArrayList<WindowAction> subMenuActions() {
+        ArrayList<WindowAction> actions = super.subMenuActions();
+
+        actions.add(new WindowAction("Clear contents")
+        {
+            @Override
+            public void doAction()
+            {
+                chatLogger.getContents().clear();
+            }
+        });
+
+        return actions;
     }
 
     public ChatLogger getChatLogger()
